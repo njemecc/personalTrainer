@@ -1,0 +1,21 @@
+.survey-layout-wrapper {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
+    url(/assets/images/tiangle.jpg);
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  display: flex;
+  flex-direction: column;
+  height: 135vh;
+}
+
+@media screen and (max-width: 550px) {
+  .survey-layout-wrapper {
+    background: url(/assets/images/tiangle-mobile.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
