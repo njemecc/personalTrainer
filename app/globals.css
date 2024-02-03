@@ -2,15 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
 /* colors 
 
-#9ACD32   YellowGreen
+#FFD200   Zlatna - primary
 
-#F4F0E7   BEZ
+#6d671b Zlatna - forma
 
-#918358   Smedja
+#f9fafb Bela
+
 
 */
+
+body {
+  font-family: "Inter", sans-serif;
+}
 
 @layer base {
   :root {
@@ -81,10 +88,6 @@
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-poppins);
 }
 
 .filter-grey {
@@ -214,18 +217,16 @@ body {
     @apply text-[12px] font-medium leading-[20px];
   }
 
-  /* SHADCN OVERRIDES */
-  /* .select-field {
-    @apply w-full  h-[54px] placeholder:text-grey-500 rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent !important;
+  .select-field {
+    @apply lg:w-1/2  w-full  h-[54px] placeholder:text-white rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent !important;
   }
 
   .input-field {
-    @apply h-[54px] focus-visible:ring-offset-0 placeholder:text-grey-500 rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important;
-  } */
-
-  /* .textarea {
-    @apply bg-grey-50 flex flex-1 placeholder:text-grey-500 p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent !important;
-  } */
+    @apply h-[45px] lg:h-[54px] focus-visible:ring-offset-0 rounded-lg p-regular-16 px-4 py-3 border-bela border-2  focus:border-gray-400 focus-visible:ring-transparent placeholder:opacity-50 placeholder:text-bela text-bela !important;
+  }
+  .textarea {
+    @apply flex flex-1 p-regular-16 px-5 py-3 border-white focus-visible:ring-transparent text-white placeholder:text-white !important;
+  }
 
   .button {
     @apply rounded-full h-[54px] p-regular-16;
@@ -265,22 +266,23 @@ body {
 
 /* ========================================== REACT-DATEPICKER STYLES */
 .datePicker {
-  width: 100%;
+  color: white;
+  padding: 1rem;
 }
 
 .react-datepicker__input-container input {
   background-color: transparent;
   width: 100%;
   outline: none;
-  margin-left: 16px;
+  margin-left: 10px;
 }
 
 .react-datepicker__day--selected {
-  background-color: #624cf5 !important;
-  color: #ffffff !important;
+  background-color: #ffd200 !important;
+  color: white !important;
   border-radius: 4px;
 }
 
 .react-datepicker__time-list-item--selected {
-  background-color: #624cf5 !important;
+  background-color: #ffd200 !important;
 }
