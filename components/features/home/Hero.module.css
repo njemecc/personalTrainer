@@ -1,0 +1,27 @@
+/* style={{
+    background:
+      "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url(/assets/images/stoji-ukoso.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }} */
+
+.hero-wrapper {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(/assets/images/stoji-ukoso-mobile.jpg);
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 760px) {
+  .hero-wrapper {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+      url(/assets/images/stoji-ukoso.jpg);
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
