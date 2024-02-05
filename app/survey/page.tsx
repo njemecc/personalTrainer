@@ -22,17 +22,9 @@ const SurveyPage = () => {
         </p>
       </section>
       <Provider store={store}>
-        <div className="m-auto w-4/5 lg:w-3/5 flex justify-center my-8rounded shadow-lg bg-gradient-to-bl opacity-90   from-black  via-[#6d671b] via-50%  rounded-lg py-10 ">
+        <>
           <SurveyForm />
-        </div>
-        <div className="mt-5">
-          <SurveyPagination />
-        </div>
-        <div className="flex justify-center mt-5">
-          <Button className="bg-gradient-to-bl from-black  via-[#6d671b] via-50% w-24 h-14 uppercase text-white p-regular-16 p-5">
-            Pošalji
-          </Button>
-        </div>
+        </>
       </Provider>
     </>
   );
