@@ -3,7 +3,7 @@ import { FaHome } from "react-icons/fa";
 export const headerLinks = [
   {
     label: "Početna",
-    route: "/",
+    route: "/survey",
   },
   {
     label: "Moj plan",
@@ -15,7 +15,19 @@ export const headerLinks = [
   },
 ];
 
-export const eventDefaultValues = {
+export const testimonials = [
+  {
+    name: "rezultat1.jpeg",
+  },
+  {
+    name: "rezultat3.jpeg",
+  },
+  {
+    name: "rezultat4.JPG",
+  },
+];
+
+export const surveyDefaultValues = {
   title: "",
   description: "",
   location: "",
