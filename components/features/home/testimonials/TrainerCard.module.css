@@ -1,6 +1,6 @@
 .item {
-  height: 40rem;
-  width: 24rem;
+  height: 35rem;
+  width: 20rem;
   margin: 5rem 1rem;
 }
 .item img {
@@ -54,4 +54,12 @@
 }
 .item .inner .info .links a:hover {
   box-shadow: 0 0 0.6rem #000;
+}
+
+@media (min-width: 500px) {
+  .item {
+    height: 40rem;
+    width: 24rem;
+    margin: 5rem 1rem;
+  }
 }

@@ -1,3 +1,4 @@
+import { Footer } from "@/components/ui/Footer";
 import NavBar from "@/components/ui/NavBar";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
@@ -5,6 +6,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     <div className="w-full">
       <NavBar />
       {children}
+      <Footer />
     </div>
   );
 };
