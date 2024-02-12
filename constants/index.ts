@@ -27,6 +27,24 @@ export const testimonials = [
   },
 ];
 
+export const pricingCardContent = [
+  {
+    text: "✔ Personalizovani Plan Treninga",
+  },
+  {
+    text: "✔ Personalizovani Plan Treninga",
+  },
+  {
+    text: "✔ Monitoring I Korigovanje Plana",
+  },
+  {
+    text: "✔ Snimci Vežbi",
+  },
+  {
+    text: "✔ Podrška 24/7",
+  },
+];
+
 export const surveyDefaultValues = {
   title: "",
   description: "",
