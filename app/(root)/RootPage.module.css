@@ -1,0 +1,17 @@
+.about-testimonials-wrapper {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
+    url(/assets/images/tiangle.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+@media (min-width: 1000px) {
+  .about-testimonials-wrapper {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
+      url(/assets/images/tiangle.jpg);
+    background-position: center;
+    background-size: cover;
+
+    clip-path: polygon(100% 0, 100% 91%, 49% 100%, 0 89%, 0 0);
+  }
+}
