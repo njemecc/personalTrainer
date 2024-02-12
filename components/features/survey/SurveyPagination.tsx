@@ -16,17 +16,23 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const SurveyPagination = () => {
-  const dispatch = useDispatch();
+type SurveyPaginationProps = {
+  page: number;
+  nextPage: () => void;
+  prevPage: () => void;
+};
 
-  const page = useSelector((state: RootState) => state.pagination.page);
-
+const SurveyPagination = ({
+  page,
+  nextPage,
+  prevPage,
+}: SurveyPaginationProps) => {
   return (
     <Pagination className="text-white">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            onClick={() => dispatch(paginationActions.prevPage())}
+            onClick={prevPage}
             className={`p-regular-16 lg:p-regular-20 hover:cursor-pointer ${
               page <= 1 ? "pointer-events-none opacity-50" : ""
             }`}
@@ -37,7 +43,7 @@ const SurveyPagination = () => {
         </PaginationItem>
         <PaginationItem>
           <PaginationNext
-            onClick={() => dispatch(paginationActions.nextPage())}
+            onClick={nextPage}
             className={`p-regular-16 lg:p-regular-20 hover:cursor-pointer ${
               page >= 3 ? "pointer-events-none opacity-50" : ""
             }`}
