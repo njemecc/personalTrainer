@@ -1,12 +1,10 @@
 "use client";
 
 import SurveyForm from "@/components/features/survey/SurveyForm";
-import SurveyPagination from "@/components/features/survey/SurveyPagination";
 
 //redux
 import { Provider } from "react-redux";
 import store from "@/store/store";
-import { Button } from "@/components/ui/button";
 
 const SurveyPage = () => {
   return (
