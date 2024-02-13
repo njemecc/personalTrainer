@@ -98,7 +98,7 @@ body {
 /* ========================================== TAILWIND STYLES */
 @layer utilities {
   .our-p-tag {
-    @apply p-regular-18 mb-1 md:p-regular-24;
+    @apply p-regular-18 mb-2 md:p-regular-24;
   }
 
   .wrapper {
