@@ -19,8 +19,8 @@ const Testimonials = () => {
 
   return (
     <div className="w-4/5 lg:w-3/5 flex-col lg:flex-row  mt-5 lg:mt-20 flex m-auto justify-around items-center">
-      <div className="text-white  w-full lg:w-2/4">
-        <p className="p-regular-18 md:p-regular-22 mb-5">
+      <div className="text-white w-full lg:w-2/4">
+        <p className="w-full   p-regular-18 md:p-regular-22 mb-5">
           Taj posao je u potpunosti na meni, a tvoje je samo da se opustiš i
           uživaš na putu do postizanja svog željenog rezultata! Program je
           napravljen tako da dobijaš plan treninga i ishrane za svaki mesec.
