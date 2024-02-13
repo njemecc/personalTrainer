@@ -1,6 +1,12 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import styles from "./Hero.module.css";
+import { useDynamicText } from "./useDynamicText";
 
 export const Hero = () => {
+  const { text } = useDynamicText();
+
   return (
     <div
       className={`${styles["hero-wrapper"]} h-full relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0lg:mb-0`}
@@ -12,9 +18,10 @@ export const Hero = () => {
             Novi Program
           </p>
           <h2 className="text-5xl text-primary mb-5 sm:w-2/4 md:w-full  md:text-6xl  font-bold tracking-tight  sm:text-4xl sm:leading-none">
-            Dosta sa
-            <br className=" md:block" />
-            Izgovorima.{" "}
+            {text}
+            {/* Dosta sa
+            <br className="md:block" />
+            Izgovorima.{" "} */}
             <span className="inline-block text-deep-purple-accent-400"></span>
           </h2>
           <p className="pr-5 mb-5 text-base text-gold md:text-lg">
@@ -25,16 +32,9 @@ export const Hero = () => {
           <div className="flex items-center">
             <a
               href="/"
-              className="hover:bg-white font-semibold hover:text-black inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+              className="p-regular-20 hover:bg-white font-semibold hover:text-black inline-flex items-center justify-center h-12 px-6 mr-6  tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
             >
               Započnimo
-            </a>
-            <a
-              href="/"
-              aria-label=""
-              className="hover:bg-white hover:text-black inline-flex items-center font-semibold h-12 px-6 mr-6 text-white transition-colors duration-200   rounded hover:text-deep-purple-accent-700"
-            >
-              O meni
             </a>
           </div>
         </div>
