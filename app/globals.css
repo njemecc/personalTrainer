@@ -15,10 +15,6 @@
 
 */
 
-body {
-  font-family: "Inter", sans-serif;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -97,12 +93,12 @@ body {
 
 /* ========================================== TAILWIND STYLES */
 @layer utilities {
-  .our-p-tag {
-    @apply p-regular-18 mb-2 md:p-regular-24;
-  }
-
   .wrapper {
     @apply max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full;
+  }
+
+  .our-p-tag {
+    @apply hover:border-primary hover:cursor-pointer p-1 p-regular-16 mb-5 text-white md:p-regular-20 border-b-2;
   }
 
   .flex-center {
