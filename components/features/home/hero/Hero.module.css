@@ -8,9 +8,10 @@
 
 .hero-wrapper {
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url(/assets/images/stoji-ukoso-mobile.jpg);
+    url(/assets/images/stoji-ukoso-Copy.jpg);
 
   background-size: cover;
+
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
