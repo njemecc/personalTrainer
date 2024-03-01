@@ -25,10 +25,10 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#FFD200",
+          DEFAULT: "#91870c",
         },
         gold: {
-          DEFAULT: "#6d671b",
+          DEFAULT: "#91870c",
         },
 
         bela: {

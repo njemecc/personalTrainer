@@ -1,6 +1,6 @@
 .item {
-  height: 35rem;
-  width: 20rem;
+  height: 25rem;
+  width: 15rem;
   margin: 5rem 1rem;
 }
 .item img {
@@ -18,7 +18,7 @@
   transform: translateY(-20px);
 }
 .item .inner .info {
-  padding: 1.2rem 1rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 0.6rem;
   margin-top: -2.5rem;
 }
@@ -29,12 +29,12 @@
   font-size: 1.3rem;
   font-weight: 600;
   margin: 0;
-  color: #000;
+  color: #ffff;
 }
 .item .inner .info p {
   font-size: 1.1rem;
   font-weight: 400;
-  color: white;
+  color: #000;
   margin-top: 0.6rem;
 }
 .item .inner .info .links {
@@ -42,8 +42,8 @@
 }
 .item .inner .info .links a {
   display: inline-block;
-  height: 2rem;
-  width: 2rem;
+  height: 1.8rem;
+  width: 1.8rem;
   background-color: #fff;
   border-radius: 50%;
   color: yellowgreen;
@@ -53,13 +53,26 @@
   font-size: 1.1rem;
 }
 .item .inner .info .links a:hover {
-  box-shadow: 0 0 0.6rem #000;
+  box-shadow: 0 0 0.7rem #fff;
 }
 
 @media (min-width: 500px) {
   .item {
-    height: 40rem;
-    width: 24rem;
+    height: 35rem;
+    width: 21rem;
     margin: 5rem 1rem;
+  }
+
+  .item .inner .info {
+    padding: 2rem 1rem;
+  }
+
+  .item .inner .info .links a {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .item .inner .info h4 {
+    font-size: 1.5rem;
   }
 }

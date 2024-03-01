@@ -14,8 +14,8 @@ const PricingCard = ({ duration, price }: PricingCardProps) => {
           <div className="mr-1 text-5xl font-bold">{price}</div>
         </div>
         <div className="mt-2 space-y-3">
-          {pricingCardContent.map((content) => (
-            <div className="text-gray-700">{content.text}</div>
+          {pricingCardContent.map((content, i) => (
+            <div key={i} className="text-gray-700">{`✔ ${content.text}`}</div>
           ))}
         </div>
       </div>
