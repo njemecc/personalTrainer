@@ -49,8 +49,12 @@ import {
 //redux
 
 import SurveyPagination from "./SurveyPagination";
+import { useUser } from "@clerk/nextjs";
+import { createSurvey } from "@/lib/actions/survey.actions";
 
 const SurveyForm = () => {
+  const { user } = useUser();
+
   const [statusZaposlenja, setStatusZaposlenja] = useState<String>("");
   const [ranijeTrenirali, setRanijeTrenirali] = useState<String>("");
 
@@ -60,8 +64,11 @@ const SurveyForm = () => {
 
   const [page, setPage] = useState<number>(1);
 
-  const onSubmit = (values: z.infer<typeof surveyFormSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof surveyFormSchema>) => {
+    const survey = await createSurvey({
+      userId: user!.id,
+      ...values,
+    });
   };
 
   return (
