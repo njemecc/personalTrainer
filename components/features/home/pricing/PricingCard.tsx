@@ -1,4 +1,5 @@
 import { pricingCardContent } from "@/constants";
+import Link from "next/link";
 
 type PricingCardProps = {
   duration: string;
@@ -20,12 +21,12 @@ const PricingCard = ({ duration, price }: PricingCardProps) => {
         </div>
       </div>
       <div>
-        <a
-          href="/"
+        <Link
+          href="/survey"
           className=" md:w-[16rem] inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gold rounded shadow-md hover:opacity-90 focus:shadow-outline focus:outline-none"
         >
           Započni
-        </a>
+        </Link>
       </div>
     </div>
   );
