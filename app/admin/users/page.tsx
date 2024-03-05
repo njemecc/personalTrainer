@@ -1,4 +1,4 @@
-import { UsersTable } from "@/components/features/admin/users/UsersTable";
+import UsersTable from "@/components/features/admin/users/UsersTable";
 
 const page = () => {
   return (
