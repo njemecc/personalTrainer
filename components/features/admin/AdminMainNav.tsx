@@ -118,7 +118,7 @@ const AdminMainNav = ({ variant }: AdminNavbarProps) => {
             href="/admin/users"
           >
             <FaUsers />
-            <span>Korisnici</span>
+            <span>Klijenti</span>
           </StyledNavLink>
         </li>
 
