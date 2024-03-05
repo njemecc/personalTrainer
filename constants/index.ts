@@ -1,5 +1,3 @@
-import { FaHome } from "react-icons/fa";
-
 export const headerLinks = [
   {
     label: "Početna",
@@ -32,7 +30,7 @@ export const pricingCardContent = [
     text: "Personalizovani Plan Treninga",
   },
   {
-    text: "Personalizovani Plan Treninga",
+    text: "Personalizovani Plan Ishrane",
   },
   {
     text: "Monitoring I Korigovanje Plana",

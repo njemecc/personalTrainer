@@ -5,6 +5,8 @@ const UserSchema = new Schema({
   email: { type: String, required: true, unique: true },
   photo: { type: String },
   username: { type: String },
+  created_at: { type: Date },
+  payed_at: { type: Date },
 });
 
 const User = models.User || model("User", UserSchema);
