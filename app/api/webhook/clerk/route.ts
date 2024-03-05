@@ -62,7 +62,7 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       photo: image_url,
       username: username!,
-      createdAt: new Date(created_at),
+      created_at: new Date(created_at),
     };
 
     const newUser = await createUser(user);

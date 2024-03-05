@@ -3,7 +3,7 @@ export type CreateUserParams = {
   email: string;
   photo: string;
   username: string;
-  createdAt: Date;
+  created_at: Date;
 };
 
 export type UpdateUserParams = {
