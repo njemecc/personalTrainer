@@ -6,6 +6,18 @@ import { connectToDatabase } from "../database/mongodb";
 import User from "../database/mongodb/models/user.model";
 import { revalidatePath } from "next/cache";
 
+export const getAllUsers = async () => {
+  try {
+    await connectToDatabase();
+
+    const allUsers = await User.find();
+
+    return JSON.parse(JSON.stringify(allUsers));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 export const createUser = async (user: CreateUserParams) => {
   try {
     await connectToDatabase();
