@@ -8,6 +8,7 @@ const UserSchema = new Schema({
   created_at: { type: Date },
   first_name: { type: String },
   last_name: { type: String },
+  is_active: { type: Boolean, default: false },
 });
 
 const User = models.User || model("User", UserSchema);
