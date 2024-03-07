@@ -14,21 +14,28 @@ import {
 export const columns: ColumnDef<UserColumnParams>[] = [
   {
     accessorKey: "username",
-    header: "Username",
+    header: "Korisničko ime",
   },
   {
     accessorKey: "email",
     header: "Email",
   },
   {
+    accessorKey: "is_active",
+    header: "Aktivan",
+    cell: (value) => (value.getValue() ? "Da" : "Ne"),
+  },
+  {
     accessorKey: "created_at",
+    //@ts-ignore
+    cell: (value) => value.getValue().toString().substring(0, 16),
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Registrated date
+          Datum registracije
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
