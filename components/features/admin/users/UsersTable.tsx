@@ -8,6 +8,8 @@ import {
   SortingState,
   VisibilityState,
   getSortedRowModel,
+  ColumnFiltersState,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
@@ -29,69 +31,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { UserColumnParams } from "@/types/users";
+import { CreateUserParams, UserColumnParams } from "@/types/users";
 
-const UsersTable = () => {
+type UserTableParams = {
+  data: CreateUserParams[];
+};
+
+const UsersTable = ({ data }: UserTableParams) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-
-  const data: UserColumnParams[] = [
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.03.2023"),
-    },
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.04.2023"),
-    },
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.06.2023"),
-    },
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.03.2023"),
-    },
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.03.2023"),
-    },
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.03.2023"),
-    },
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.03.2023"),
-    },
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.03.2023"),
-    },
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.03.2023"),
-    },
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.03.2023"),
-    },
-    {
-      email: "branislavnjemec@gmail.com",
-      username: "bnjemec01",
-      created_at: new Date("02.03.2023"),
-    },
-  ];
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -101,15 +50,50 @@ const UsersTable = () => {
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters,
       columnVisibility,
     },
   });
 
   return (
-    <>
+    <div className="w-full">
       <div className="flex items-center py-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="mr-auto">
+              {table.getColumn("is_active")?.getFilterValue()
+                ? "Aktivni"
+                : "Neaktivni"}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            <DropdownMenuCheckboxItem
+              className="capitalize"
+              //@ts-ignore
+              checked={table.getColumn("is_active")?.getFilterValue()}
+              onCheckedChange={(event) =>
+                table.getColumn("is_active")?.setFilterValue(true)
+              }
+            >
+              Aktivni
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              className="capitalize"
+              checked={!table.getColumn("is_active")?.getFilterValue()}
+              onCheckedChange={(event) => {
+                table.getColumn("is_active")?.setFilterValue(false);
+
+                console.log(table.getColumn("is_active")?.getFilterValue());
+              }}
+            >
+              Neaktivni
+            </DropdownMenuCheckboxItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -205,7 +189,7 @@ const UsersTable = () => {
           Next
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 
