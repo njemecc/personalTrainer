@@ -21,6 +21,10 @@ const Main = styled.main`
   background-color: var(--color-grey-50);
   padding: 4rem 4.8rem 6.4rem;
   overflow: scroll;
+
+  @media (max-width: 670px) {
+    padding: 4rem 1rem;
+  }
 `;
 
 const Container = styled.div`

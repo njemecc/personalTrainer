@@ -1,9 +1,15 @@
 import UsersTable from "@/components/features/admin/users/UsersTable";
+import { getAllUsers } from "@/lib/actions/user.actions";
 
-const page = () => {
+const page = async () => {
+  const users = await getAllUsers();
+
   return (
-    <div>
-      <UsersTable />
+    <div className="w-full">
+      <h2 className="text-center text-xl ">
+        Lista <span className="text-gold">klijenata</span>
+      </h2>
+      <UsersTable data={users} />
     </div>
   );
 };
