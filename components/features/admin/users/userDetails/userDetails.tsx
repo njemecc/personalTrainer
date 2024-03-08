@@ -1,6 +1,5 @@
 import { UserSurveyDTO } from "@/types/survey";
 import React from "react";
-import Tag from "../../../../ui/Tag";
 const UserDetails = ({
   email,
   firstName,
