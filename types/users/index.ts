@@ -6,7 +6,7 @@ export type CreateUserParams = {
   created_at: Date;
   first_name: string;
   last_name: string;
-  is_active: boolean;
+  is_active?: boolean;
 };
 
 export type UpdateUserParams = {
