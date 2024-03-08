@@ -34,7 +34,7 @@ import {
 import { CreateUserParams, UserColumnParams } from "@/types/users";
 
 type UserTableParams = {
-  data: CreateUserParams[];
+  data: UserColumnParams[];
 };
 
 const UsersTable = ({ data }: UserTableParams) => {
