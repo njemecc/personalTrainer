@@ -14,8 +14,13 @@ export type UpdateUserParams = {
 };
 
 export type UserColumnParams = {
+  _id: string;
   email: string;
   username: string;
   created_at: Date;
   is_active: boolean;
+};
+
+export type UserDetailsPageParams = {
+  params: { userId: string };
 };

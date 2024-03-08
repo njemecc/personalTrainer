@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 export const columns: ColumnDef<UserColumnParams>[] = [
   {
@@ -44,7 +45,7 @@ export const columns: ColumnDef<UserColumnParams>[] = [
   {
     id: "opcije",
     cell: ({ row }) => {
-      const payment = row.original;
+      const user = row.original;
 
       return (
         <DropdownMenu>
@@ -57,12 +58,14 @@ export const columns: ColumnDef<UserColumnParams>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Opcije</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.email)}
+              onClick={() => navigator.clipboard.writeText(user.email)}
             >
               Kopiraj email
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>📁 Detalji</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/admin/users/${user._id}`}>📁 Detalji </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>🗑️ Obriši klijenta</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

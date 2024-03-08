@@ -18,6 +18,17 @@ export const getAllUsers = async () => {
   }
 };
 
+export const getUserById = async (userId: string) => {
+  try {
+    await connectToDatabase();
+    const user = await User.findById(userId);
+
+    return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 export const createUser = async (user: CreateUserParams) => {
   try {
     await connectToDatabase();
