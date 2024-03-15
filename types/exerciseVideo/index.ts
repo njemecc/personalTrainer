@@ -12,3 +12,17 @@ export type ExerciseVideoDetailsDTO = {
   description: string;
   category: string;
 };
+
+export type CreateExerciseVideoParams = {
+  name: string;
+  videoUrl: string;
+  description: string;
+  category: string;
+};
+
+export type UpdateExerciseVideoParams = {
+  name: string;
+  videoUrl: string;
+  description: string;
+  category: string;
+};
