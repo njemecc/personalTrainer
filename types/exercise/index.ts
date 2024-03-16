@@ -20,3 +20,10 @@ export type ExerciseDetailsDTO = {
   exerciseVideoDescription: string;
   exerciseVideoCategory: string;
 };
+
+export type Exercise = {
+  name: string;
+  sets: number;
+  reps: number;
+  url: string;
+};
