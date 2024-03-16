@@ -65,8 +65,6 @@ const SurveyForm = () => {
   const [page, setPage] = useState<number>(1);
 
   const onSubmit = async (values: z.infer<typeof surveyFormSchema>) => {
-    console.log(user);
-
     const survey = await createSurvey({
       //@ts-ignore
       userId: user.publicMetadata.userId,
