@@ -28,7 +28,7 @@ export const getUserAndSurveyInfo = async (Id: string) => {
 
     const userInfo: UserSurveyDTO = mapUserSurveyToDTO(user, survey);
 
-    return userInfo;
+    return JSON.parse(JSON.stringify(userInfo));
   } catch (error) {
     handleError(error);
   }
