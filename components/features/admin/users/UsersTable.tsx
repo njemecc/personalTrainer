@@ -86,8 +86,6 @@ const UsersTable = ({ data }: UserTableParams) => {
               checked={!table.getColumn("is_active")?.getFilterValue()}
               onCheckedChange={(event) => {
                 table.getColumn("is_active")?.setFilterValue(false);
-
-                console.log(table.getColumn("is_active")?.getFilterValue());
               }}
             >
               Neaktivni
