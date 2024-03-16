@@ -1,4 +1,5 @@
 import UserDetails from "@/components/features/admin/users/userDetails/userDetails";
+import UserWorkout from "@/components/features/user/UserWorkout";
 import { getUserAndSurveyInfo } from "@/lib/actions/survey.actions";
 import { UserDetailsPageParams } from "@/types/users";
 
@@ -14,7 +15,12 @@ const page = async ({ params }: UserDetailsPageParams) => {
         popunio anketu.
       </h1>
     );
-  return <UserDetails {...user} />;
+  return (
+    <>
+      <UserDetails {...user} />
+      <UserWorkout />
+    </>
+  );
 };
 
 export default page;
