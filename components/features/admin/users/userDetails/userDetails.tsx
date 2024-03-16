@@ -24,7 +24,9 @@ const UserDetails = ({
   return (
     <div className="max-w-4xl mx-auto p-4 bg-white shadow-lg rounded-md">
       <div className="flex justify-center">
-        <h2 className="text-xl font-semibold">O klijentu</h2>
+        <h2 className="text-xl font-semibold">
+          O <span className="text-gold">klijentu</span>
+        </h2>
       </div>
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/3 p-4">
