@@ -1,5 +1,7 @@
 import UserDetails from "@/components/features/admin/users/userDetails/userDetails";
-import UserWorkout from "@/components/features/user/UserWorkout";
+import { CreateWorkoutModal } from "@/components/features/workout/CreateWorkoutModal";
+import UserWorkout from "@/components/features/workout/UserWorkout";
+import { Button } from "@/components/ui/button";
 import { getUserAndSurveyInfo } from "@/lib/actions/survey.actions";
 import { getWorkoutplanByUserId } from "@/lib/actions/workoutplan.actions";
 import { UserDetailsPageParams } from "@/types/users";
@@ -22,7 +24,12 @@ const page = async ({ params }: UserDetailsPageParams) => {
       <h1 className="text-2xl text-center mt-20 font-semibold">
         <span className="text-gold">Klijentov </span> program
       </h1>
-      <UserWorkout workoutPlan={workoutPlan} />
+      <CreateWorkoutModal userId={params.userId} />
+      {workoutPlan ? (
+        <UserWorkout workoutPlan={workoutPlan} />
+      ) : (
+        <h1>❌ Ne postoji trening plan za ovog klijenta jos uvek</h1>
+      )}
     </>
   );
 };

@@ -19,7 +19,7 @@ export const getAllExerciseVideos = async () => {
   }
 };
 
-export const getExerciseVide = async (exerciseVideoId: string) => {
+export const getExerciseVideo = async (exerciseVideoId: string) => {
   try {
     await connectToDatabase();
 

@@ -1,4 +1,4 @@
-import UserWorkout from "@/components/features/user/UserWorkout";
+import UserWorkout from "@/components/features/workout/UserWorkout";
 
 const page = () => {
   return (
