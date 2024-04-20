@@ -2,7 +2,7 @@
 
 import { UserWorkoutParams, WorkoutPlan } from "@/types/workoutPlan";
 import { WorkoutDay } from "./WorkoutDay";
-import { Tabs } from "./tabs";
+import { Tabs } from "../../ui/tabs";
 
 function UserWorkout({ workoutPlan }: { workoutPlan: UserWorkoutParams }) {
   const tabs = workoutPlan.days.map((day) => {
