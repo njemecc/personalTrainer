@@ -32,3 +32,14 @@ export type UserWorkoutParams = {
     }
   ];
 };
+
+export type CreateWorkoutPlanParams = {
+  userId: string;
+  days: [
+    {
+      dayName: string;
+      workoutName: string;
+      exercises: Exercise[];
+    }
+  ];
+};
