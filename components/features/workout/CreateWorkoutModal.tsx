@@ -31,7 +31,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
 
   const addExercise = () => {
     const newExercise: Exercise = {
-      id: String(Math.random() * 10000),
+      _id: String(Math.random() * 10000),
       name: excerciseNameRef!.current!.value,
       sets: parseInt(excerciseSetsRef!.current!.value),
       reps: parseInt(excerciseRepsRef!.current!.value),
