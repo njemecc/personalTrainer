@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Exercise } from "@/types/exercise";
+import { CreateExerciseDto, Exercise } from "@/types/exercise";
 import { createWorkoutPlan } from "@/lib/actions/workoutplan.actions";
 import { CreateWorkoutPlanParams } from "@/types/workoutPlan";
 import { Form, useForm } from "react-hook-form";
@@ -31,6 +31,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
 
   const addExercise = () => {
     const newExercise: Exercise = {
+      _id: String(Math.random() * 10000),
       name: excerciseNameRef!.current!.value,
       sets: parseInt(excerciseSetsRef!.current!.value),
       reps: parseInt(excerciseRepsRef!.current!.value),
@@ -58,8 +59,6 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
     excerciseSetsRef!.current!.value = "";
     excerciseRepsRef!.current!.value = "";
     excerciseUrlRef!.current!.value = "";
-
-    console.log(exercises);
   };
 
   const dayRef = useRef<HTMLInputElement>(null);

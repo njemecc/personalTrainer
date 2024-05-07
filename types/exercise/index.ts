@@ -21,7 +21,15 @@ export type ExerciseDetailsDTO = {
   exerciseVideoCategory: string;
 };
 
+export type CreateExerciseDto = {
+  name: string;
+  sets: number;
+  reps: number;
+  url: string;
+};
+
 export type Exercise = {
+  _id: string;
   name: string;
   sets: number;
   reps: number;
