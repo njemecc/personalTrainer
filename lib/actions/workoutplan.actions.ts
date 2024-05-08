@@ -4,6 +4,7 @@ import { CreateWorkoutPlanParams } from "@/types/workoutPlan";
 import { connectToDatabase } from "../database/mongodb";
 import WorkoutPlan from "../database/mongodb/models/workoutplan.model";
 import { handleError } from "../utils";
+import { revalidatePath } from "next/cache";
 
 export const getWorkoutplanByUserId = async (id: string) => {
   try {
@@ -42,6 +43,8 @@ export const createWorkoutPlan = async (
         newWorkoutPlan
       );
     }
+
+    revalidatePath(`/admin/users`);
 
     return JSON.parse(JSON.stringify(newWorkoutPlan));
   } catch (error) {
