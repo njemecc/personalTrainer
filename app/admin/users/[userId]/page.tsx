@@ -24,7 +24,7 @@ const page = async ({ params }: UserDetailsPageParams) => {
       </h1>
       <CreateWorkoutModal userId={params.userId} />
       {workoutPlan ? (
-        <UserWorkout workoutPlan={workoutPlan} />
+        <UserWorkout userId={params.userId} workoutPlan={workoutPlan} />
       ) : (
         <h1>❌ Ne postoji trening plan za ovog klijenta jos uvek</h1>
       )}

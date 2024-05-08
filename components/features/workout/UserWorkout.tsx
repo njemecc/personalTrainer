@@ -4,7 +4,13 @@ import { UserWorkoutParams, WorkoutPlan } from "@/types/workoutPlan";
 import { WorkoutDay } from "./WorkoutDay";
 import { Tabs } from "../../ui/tabs";
 
-function UserWorkout({ workoutPlan }: { workoutPlan: UserWorkoutParams }) {
+function UserWorkout({
+  workoutPlan,
+  userId,
+}: {
+  workoutPlan: UserWorkoutParams;
+  userId: string;
+}) {
   const tabs = workoutPlan.days.map((day) => {
     return {
       title: day.dayName,
@@ -14,7 +20,7 @@ function UserWorkout({ workoutPlan }: { workoutPlan: UserWorkoutParams }) {
           <div className="flex justify-center items-center w-3/4 m-auto">
             <p className="text-center">{day.workoutName}</p>
           </div>
-          <WorkoutDay exercises={day.exercises} />
+          <WorkoutDay userId={userId} exercises={day.exercises} />
         </div>
       ),
     };

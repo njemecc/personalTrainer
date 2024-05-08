@@ -32,4 +32,5 @@ export const getUserAndSurveyInfo = async (Id: string) => {
   } catch (error) {
     handleError(error);
   }
+  console.log("e");
 };

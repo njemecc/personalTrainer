@@ -20,7 +20,7 @@ import { CreateWorkoutPlanParams } from "@/types/workoutPlan";
 import { Form, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createWorkoutFormSchema } from "@/lib/validation/createWorkoutValidator";
+import { createWorkoutFormSchema } from "@/lib/validations/workoutPlan/createWorkoutValidator";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 

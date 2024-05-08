@@ -20,7 +20,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 //validator
-import { surveyFormSchema } from "@/lib/validation/surveyValidator";
+import { surveyFormSchema } from "@/lib/validations/survey/surveyValidator";
 
 //hooks
 import { useForm } from "react-hook-form";

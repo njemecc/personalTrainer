@@ -3,7 +3,13 @@
 import { Exercise } from "@/types/exercise";
 import SingleWorkoutCard from "./SingleExerciseCard";
 
-export function WorkoutDay({ exercises }: { exercises: Exercise[] }) {
+export function WorkoutDay({
+  exercises,
+  userId,
+}: {
+  exercises: Exercise[];
+  userId: string;
+}) {
   console.log(exercises);
 
   return exercises.map((exercise) => (
@@ -14,6 +20,7 @@ export function WorkoutDay({ exercises }: { exercises: Exercise[] }) {
       sets={exercise.sets}
       reps={exercise.reps}
       url={exercise.url}
+      userId={userId}
     />
   ));
 }
