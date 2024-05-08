@@ -1,4 +1,5 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import { connectToDatabase } from "../database/mongodb";
 import WorkoutPlan from "../database/mongodb/models/workoutplan.model";
 import { handleError } from "../utils";
@@ -22,6 +23,9 @@ export const deleteSingleExercise = async (exerciseId: string) => {
     });
 
     await workoutPlan.save();
+
+    revalidatePath(`/admin/users`);
+    console.log("ep ep");
 
     return JSON.parse(JSON.stringify(workoutPlan));
   } catch (error) {
