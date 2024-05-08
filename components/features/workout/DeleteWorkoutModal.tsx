@@ -10,7 +10,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { deleteSingleExercise } from "@/lib/actions/exercise.actions";
 
-const DeleteWorkoutModal = ({ name, id }: { name: string; id: string }) => {
+import { DialogClose } from "@radix-ui/react-dialog";
+
+const DeleteWorkoutModal = ({
+  name,
+  id,
+  userId,
+}: {
+  name: string;
+  id: string;
+  userId: string;
+}) => {
   const deleteExercise = async () => {
     await deleteSingleExercise(id);
   };
@@ -31,9 +41,11 @@ const DeleteWorkoutModal = ({ name, id }: { name: string; id: string }) => {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button onClick={deleteExercise} variant="destructive">
-            Obriši
-          </Button>
+          <DialogClose>
+            <Button onClick={deleteExercise} variant="destructive">
+              Obriši
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

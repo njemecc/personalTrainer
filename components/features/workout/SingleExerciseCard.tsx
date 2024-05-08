@@ -3,7 +3,23 @@ import { Exercise } from "@/types/exercise";
 import React from "react";
 import DeleteWorkoutModal from "./DeleteWorkoutModal";
 
-const SingleWorkoutCard = ({ name, sets, reps, url, _id }: Exercise) => {
+type SingleWorkoutCardParams = {
+  name: string;
+  sets: number;
+  reps: number;
+  url: string;
+  _id: string;
+  userId: string;
+};
+
+const SingleWorkoutCard = ({
+  name,
+  sets,
+  reps,
+  url,
+  _id,
+  userId,
+}: SingleWorkoutCardParams) => {
   return (
     <CardContainer className="inter-var">
       <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
@@ -46,10 +62,9 @@ const SingleWorkoutCard = ({ name, sets, reps, url, _id }: Exercise) => {
           <CardItem
             translateZ={20}
             translateX={40}
-            as="button"
-            className="  rounded-xl bg-red-500 dark:bg-white dark:text-black text-white text-xs font-bold"
+            className=" text-center rounded-xl bg-red-500 dark:bg-white dark:text-black text-white text-xs font-bold"
           >
-            <DeleteWorkoutModal name={name} id={_id} />
+            <DeleteWorkoutModal userId={userId} name={name} id={_id} />
           </CardItem>
         </div>
       </CardBody>
