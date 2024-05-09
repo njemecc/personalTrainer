@@ -6,6 +6,7 @@ import Survey from "../database/mongodb/models/survey.model";
 import { handleError } from "../utils";
 import User from "../database/mongodb/models/user.model";
 import { mapUserSurveyToDTO } from "../database/mongodb/mappers/surveyMapper";
+import mongoose from "mongoose";
 
 export const createSurvey = async (surveyData: SurveyParams) => {
   try {
@@ -20,7 +21,12 @@ export const createSurvey = async (surveyData: SurveyParams) => {
 export const getUserAndSurveyInfo = async (Id: string) => {
   try {
     await connectToDatabase();
-    const user = await User.findById(Id).exec();
+
+    const objectId = new mongoose.Types.ObjectId(Id);
+
+    console.log("objectId:", objectId);
+
+    const user = await User.findById(objectId).exec();
 
     const survey = await Survey.findOne({ userId: Id }).exec();
 
@@ -32,5 +38,4 @@ export const getUserAndSurveyInfo = async (Id: string) => {
   } catch (error) {
     handleError(error);
   }
-  console.log("e");
 };
