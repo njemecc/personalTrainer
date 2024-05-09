@@ -7,6 +7,7 @@ import { UserDetailsPageParams } from "@/types/users";
 
 const page = async ({ params }: UserDetailsPageParams) => {
   const user = await getUserAndSurveyInfo(params.userId);
+
   const workoutPlan = await getWorkoutplanByUserId(params.userId);
 
   if (!user)
