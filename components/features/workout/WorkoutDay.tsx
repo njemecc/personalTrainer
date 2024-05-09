@@ -10,8 +10,6 @@ export function WorkoutDay({
   exercises: Exercise[];
   userId: string;
 }) {
-  console.log(exercises);
-
   return exercises.map((exercise) => (
     <SingleWorkoutCard
       key={exercise._id}
