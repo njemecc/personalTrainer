@@ -30,8 +30,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
   const { toast } = useToast();
 
   const addExercise = () => {
-    const newExercise: Exercise = {
-      _id: String(Math.random() * 10000),
+    const newExercise: CreateExerciseDto = {
       name: excerciseNameRef!.current!.value,
       sets: parseInt(excerciseSetsRef!.current!.value),
       reps: parseInt(excerciseRepsRef!.current!.value),
@@ -84,7 +83,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
     if (
       !planToSend.days[0].dayName ||
       !planToSend.days[0].workoutName ||
-      planToSend.days[0].exercises.length === 0
+      planToSend?.days[0]?.exercises.length === 0
     ) {
       toast({
         variant: "destructive",
