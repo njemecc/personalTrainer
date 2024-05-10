@@ -16,7 +16,7 @@ function UserWorkout({
       title: day.dayName,
       value: day.dayName.toLowerCase(),
       content: (
-        <div className="w-full  relative  rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br bg-gray-400">
+        <div className="w-full  relative  rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br border-2 bg-neutral-900 border-primary">
           <div className="flex justify-center items-center w-3/4 m-auto">
             <p className="text-center">{day.workoutName}</p>
           </div>
