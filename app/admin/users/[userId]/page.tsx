@@ -27,7 +27,7 @@ const page = async ({ params }: UserDetailsPageParams) => {
       {workoutPlan ? (
         <UserWorkout userId={params.userId} workoutPlan={workoutPlan} />
       ) : (
-        <h1>❌ Ne postoji trening plan za ovog klijenta jos uvek</h1>
+        <h1>❌ Ne postoji trening plan za ovog klijenta još uvek.</h1>
       )}
     </>
   );
