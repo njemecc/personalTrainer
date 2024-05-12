@@ -51,6 +51,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
       return;
     }
 
+    //@ts-ignore
     setExercises((prevExercises) => [...prevExercises, newExercise]);
 
     //reset values for excercise
