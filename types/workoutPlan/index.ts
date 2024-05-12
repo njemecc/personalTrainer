@@ -17,6 +17,7 @@ export type WorkoutPlan = {
       dayName: string;
       workoutName: string;
       exercises: Exercise[];
+      _id: string;
     }
   ];
 };
@@ -29,6 +30,7 @@ export type UserWorkoutParams = {
       dayName: string;
       workoutName: string;
       exercises: Exercise[];
+      _id: string;
     }
   ];
 };

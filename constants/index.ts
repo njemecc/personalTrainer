@@ -1,15 +1,15 @@
 export const headerLinks = [
   {
     label: "Početna",
-    route: "/survey",
+    route: "/",
   },
   {
     label: "Moj plan",
-    route: "/plan/:id",
+    route: "/plan",
   },
   {
-    label: "Planovi",
-    route: "/plans",
+    label: "Anketa",
+    route: "/survey",
   },
 ];
 
