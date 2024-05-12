@@ -3,6 +3,8 @@
 import { UserWorkoutParams, WorkoutPlan } from "@/types/workoutPlan";
 import { WorkoutDay } from "./WorkoutDay";
 import { Tabs } from "../../ui/tabs";
+import DeleteWorkoutModal from "./DeleteWorkoutModal";
+import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
 
 function UserWorkout({
   workoutPlan,
@@ -20,7 +22,16 @@ function UserWorkout({
           <div className="flex justify-center items-center w-3/4 m-auto">
             <p className="text-center">{day.workoutName}</p>
           </div>
-          <WorkoutDay userId={userId} exercises={day.exercises} />
+          <WorkoutDay
+            dayId={day._id}
+            userId={userId}
+            exercises={day.exercises}
+          />
+          <CreateUpdateExerciseModal
+            userId={userId}
+            dayId={day._id}
+            variant="create"
+          />
         </div>
       ),
     };
