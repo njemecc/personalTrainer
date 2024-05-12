@@ -2,6 +2,7 @@ import { CardBody, CardContainer, CardItem } from "@/components/ui/card";
 import { Exercise } from "@/types/exercise";
 import React from "react";
 import DeleteWorkoutModal from "./DeleteWorkoutModal";
+import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
 
 type SingleWorkoutCardParams = {
   name: string;
@@ -10,6 +11,8 @@ type SingleWorkoutCardParams = {
   url: string;
   _id: string;
   userId: string;
+  dayId: string;
+  exerciseId: string;
 };
 
 const SingleWorkoutCard = ({
@@ -19,6 +22,8 @@ const SingleWorkoutCard = ({
   url,
   _id,
   userId,
+  dayId,
+  exerciseId,
 }: SingleWorkoutCardParams) => {
   return (
     <CardContainer className="inter-var">
@@ -54,10 +59,18 @@ const SingleWorkoutCard = ({
           <CardItem
             translateZ={20}
             translateX={-40}
-            as="button"
             className="px-4 py-2 rounded-xl text-xs font-normal text-black"
           >
-            Izmeni →
+            <CreateUpdateExerciseModal
+              dayId={dayId}
+              userId={userId}
+              name={name}
+              url={url}
+              exerciseId={_id}
+              reps={reps}
+              sets={sets}
+              variant="update"
+            />
           </CardItem>
           <CardItem
             translateZ={20}
