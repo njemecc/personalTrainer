@@ -1,26 +1,40 @@
+import { getUserAndSurveyInfo } from "@/lib/actions/survey.actions";
 import { UserSurveyDTO } from "@/types/survey";
 import React from "react";
-const UserDetails = ({
-  email,
-  firstName,
-  lastName,
-  isActive,
-  photo,
-  telefon,
-  visina,
-  tezina,
-  datumRodjenja,
-  radniStatus,
-  brojObroka,
-  satiSpavanja,
-  tipOsobe,
-  zdravstveniProblem,
-  dodatno,
-  razlogPrestanka,
-  imaliTrenera,
-  ocekivanja,
-  ranijeTrenirali,
-}: UserSurveyDTO) => {
+const UserDetails = async ({ userId }: { userId: string }) => {
+  const user = await getUserAndSurveyInfo(userId);
+
+  if (!user) {
+    return (
+      <h1 className="text-xl">
+        Korisnik sa ovim identifikatorom ne postoji u bazi podataka ili nije
+        popunio anketu.
+      </h1>
+    );
+  }
+
+  const {
+    email,
+    firstName,
+    lastName,
+    isActive,
+    photo,
+    telefon,
+    visina,
+    tezina,
+    datumRodjenja,
+    radniStatus,
+    brojObroka,
+    satiSpavanja,
+    tipOsobe,
+    zdravstveniProblem,
+    dodatno,
+    razlogPrestanka,
+    imaliTrenera,
+    ocekivanja,
+    ranijeTrenirali,
+  } = user;
+
   return (
     <div className="max-w-4xl mx-auto p-4 bg-white shadow-lg rounded-md">
       <div className="flex justify-center">
