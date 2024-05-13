@@ -1,9 +1,9 @@
 "use client";
 
-import { UserWorkoutParams, WorkoutPlan } from "@/types/workoutPlan";
+import { UserWorkoutParams } from "@/types/workoutPlan";
 import { WorkoutDay } from "./WorkoutDay";
 import { Tabs } from "../../ui/tabs";
-import DeleteWorkoutModal from "./DeleteWorkoutModal";
+
 import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
 
 function UserWorkout({
