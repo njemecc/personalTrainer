@@ -63,7 +63,7 @@ const CreateUpdateExerciseModal = ({
     }
 
     if (variant === "update") {
-      await deleteSingleExercise(exerciseId);
+      await deleteSingleExercise(exerciseId!);
       await createExercise({
         exercise: {
           name: values.exerciseName,
@@ -80,9 +80,9 @@ const CreateUpdateExerciseModal = ({
   return (
     <Dialog>
       <DialogTrigger>
-        <Button>
+        <div className="ext-primary-foreground shadow hover:bg-primary/90 hover:text-white text-sm p-2 rounded-sm bg-white text-black">
           {variant === "create" ? "Kreiraj novu vežbu" : "izmeni"}
-        </Button>
+        </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
