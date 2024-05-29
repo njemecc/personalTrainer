@@ -1,6 +1,7 @@
+"use client";
+
 import { CardBody, CardContainer, CardItem } from "@/components/ui/card";
-import { Exercise } from "@/types/exercise";
-import React from "react";
+import React, { useEffect } from "react";
 import DeleteWorkoutModal from "./DeleteWorkoutModal";
 import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
 
@@ -25,6 +26,22 @@ const SingleWorkoutCard = ({
   dayId,
   exerciseId,
 }: SingleWorkoutCardParams) => {
+  useEffect(() => {
+    const handleContextMenu = (event: Event) => {
+      event.preventDefault();
+    };
+
+    document
+      .getElementById(`iframe-${_id}`)!
+      .addEventListener("contextmenu", handleContextMenu);
+
+    return () => {
+      document
+        .getElementById(`iframe-${_id}`)!
+        .removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, [_id]);
+
   return (
     <CardContainer className="inter-var">
       <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
@@ -48,10 +65,11 @@ const SingleWorkoutCard = ({
           className="w-full mt-4"
         >
           <iframe
+            id={`iframe-${_id}`}
             className="w-full  md:h-[15rem]"
             src={`${url}`}
             title={`${name}`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
         </CardItem>
