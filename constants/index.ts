@@ -83,3 +83,6 @@ export const surveyDefaultValues = {
   isFree: false,
   url: "",
 };
+
+export const youtubeEmbedUrlPattern =
+  /^https:\/\/www\.youtube\.com\/embed\/[a-zA-Z0-9_-]{11}(?:\?.*)?$/;
