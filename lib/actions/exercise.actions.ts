@@ -26,7 +26,6 @@ export const deleteSingleExercise = async (exerciseId: string) => {
     await workoutPlan.save();
 
     revalidatePath(`/admin/users`);
-    console.log("ep ep");
 
     return JSON.parse(JSON.stringify(workoutPlan));
   } catch (error) {
