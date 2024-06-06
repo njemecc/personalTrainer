@@ -80,9 +80,9 @@ const CreateUpdateExerciseModal = ({
   return (
     <Dialog>
       <DialogTrigger>
-        <Button>
+        <p className="text-sm border p-2">
           {variant === "create" ? "Kreiraj novu vežbu" : "izmeni"}
-        </Button>
+        </p>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
