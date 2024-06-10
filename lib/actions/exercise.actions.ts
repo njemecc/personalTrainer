@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import { connectToDatabase } from "../database/mongodb";
 import WorkoutPlan from "../database/mongodb/models/workoutplan.model";
 import { handleError } from "../utils";
-import { CreateExerciseDto, Exercise } from "@/types/exercise";
+import { CreateExerciseDto } from "@/types/exercise";
 
 export const deleteSingleExercise = async (exerciseId: string) => {
   try {
@@ -25,7 +25,7 @@ export const deleteSingleExercise = async (exerciseId: string) => {
 
     await workoutPlan.save();
 
-    revalidatePath(`/admin/users`);
+    revalidatePath(`/admin/users/[userId]`, "layout");
 
     return JSON.parse(JSON.stringify(workoutPlan));
   } catch (error) {
@@ -59,7 +59,7 @@ export const createExercise = async ({
 
     await workoutPlan.save();
 
-    revalidatePath(`/admin/users`);
+    revalidatePath(`/admin/users/[userId]`, "layout");
     return JSON.parse(JSON.stringify(workoutPlan));
   } catch (error) {
     handleError(error);
