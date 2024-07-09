@@ -59,7 +59,7 @@ export const createExercise = async ({
 
     await workoutPlan.save();
 
-    revalidatePath(`/admin/users/[userId]`, "layout");
+    revalidatePath(`/admin/users/${userId}`);
     return JSON.parse(JSON.stringify(workoutPlan));
   } catch (error) {
     handleError(error);
