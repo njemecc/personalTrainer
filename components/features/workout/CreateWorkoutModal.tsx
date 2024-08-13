@@ -23,7 +23,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createWorkoutFormSchema } from "@/lib/validations/workoutPlan/createWorkoutValidator";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
-import { youtubeEmbedUrlPattern } from "@/constants";
 
 export function CreateWorkoutModal({ userId }: { userId: string }) {
   const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -47,15 +46,6 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
       toast({
         variant: "destructive",
         title: "Sva polja za vezbu su obavezna!",
-      });
-
-      return;
-    }
-
-    if (!youtubeEmbedUrlPattern.test(newExercise.url)) {
-      toast({
-        variant: "destructive",
-        title: "Youtube url mora biti u dobrom formatu!",
       });
 
       return;
@@ -167,6 +157,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
                 className="col-span-3"
               />
             </div>
+            {/*  ovde treba ubaciti komponentu select  */}
             <div className="grid grid-cols-4 items-center ">
               <Label htmlFor="exerciseUrl" className="text-left">
                 Video url
