@@ -6,7 +6,6 @@ import { generateSasToken } from "@/lib/actions/token.actions";
 import { getWorkoutplanByUserId } from "@/lib/actions/workoutplan.actions";
 import { Exercise } from "@/types/exercise";
 import { UserDetailsPageParams } from "@/types/users";
-import { WorkoutPlan } from "@/types/workoutPlan";
 
 const page = async ({ params }: UserDetailsPageParams) => {
   const user = await getUserAndSurveyInfo(params.userId);
