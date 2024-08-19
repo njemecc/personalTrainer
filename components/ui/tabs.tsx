@@ -23,7 +23,9 @@ export const Tabs = ({
   tabClassName?: string;
   contentClassName?: string;
 }) => {
-  const [active, setActive] = useState<Tab>(propTabs[0]);
+  const [active, setActive] = propTabs
+    ? useState<Tab>(propTabs[0])
+    : useState([]);
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
 
   const moveSelectedTabToTop = (idx: number) => {
@@ -44,7 +46,7 @@ export const Tabs = ({
           containerClassName
         )}
       >
-        {propTabs.map((tab, idx) => (
+        {propTabs?.map((tab, idx) => (
           <button
             key={tab.title}
             onClick={() => {
@@ -101,7 +103,7 @@ export const FadeInDiv = ({
   };
   return (
     <div className="relative w-full h-full">
-      {tabs.map((tab, idx) => (
+      {tabs?.map((tab, idx) => (
         <motion.div
           key={tab.value}
           layoutId={tab.value}
