@@ -1,6 +1,7 @@
 "use client";
 
 import { headerLinks } from "@/constants";
+import { Protect, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -9,7 +10,7 @@ import React from "react";
 
 const NavItems = () => {
   const pathName = usePathname();
-
+  const { user } = useUser();
   return (
     <ul className="md:flex-between flex w-full flex-col items-start gap-5 md:flex-row">
       {headerLinks.map((link) => {
@@ -23,7 +24,22 @@ const NavItems = () => {
               isActive && "text-primary-500"
             } flex-center p-medium-16 whitespace-nowrap transition-all duration-300  hover:text-gold hover:font-bold`}
           >
-            <Link href={link.route}> {link.label}</Link>
+            {link.route != "/admin" ? (
+              <Link
+                href={
+                  link.route == "/plan"
+                    ? `/plan/${user?.publicMetadata.userId}`
+                    : link.route
+                }
+              >
+                {" "}
+                {link.label}
+              </Link>
+            ) : (
+              <Protect role="org:king">
+                <Link href={link.route}> {link.label}</Link>
+              </Protect>
+            )}
           </li>
         );
       })}
