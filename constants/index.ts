@@ -1,5 +1,9 @@
 export const headerLinks = [
   {
+    label: "Admin",
+    route: "/admin",
+  },
+  {
     label: "Početna",
     route: "/",
   },
