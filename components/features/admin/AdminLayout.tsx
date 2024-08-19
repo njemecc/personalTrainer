@@ -5,6 +5,7 @@ import styled from "styled-components";
 //components
 import AdminSidebar from "./AdminSidebar";
 import { MobileAdminNavbar } from "./MobileAdminNavbar";
+import { Protect } from "@clerk/nextjs";
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -37,7 +38,10 @@ const Container = styled.div`
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
+    <Protect
+      role="org:king"
+      fallback={<p>You do not have access to this page.</p>}
+    >
       <StyledAppLayout>
         <div>
           <div className="hidden md:block">
@@ -51,7 +55,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
           <Container>{children}</Container>
         </Main>
       </StyledAppLayout>
-    </>
+    </Protect>
   );
 };
 
