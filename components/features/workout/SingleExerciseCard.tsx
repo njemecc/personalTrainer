@@ -2,6 +2,7 @@ import { CardBody, CardContainer, CardItem } from "@/components/ui/card";
 import React from "react";
 import DeleteWorkoutModal from "./DeleteWorkoutModal";
 import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
+import { Protect } from "@clerk/nextjs";
 
 type SingleExerciseCardParams = {
   name: string;
@@ -55,31 +56,33 @@ const SingleExerciseCard = ({
             allowFullScreen
           ></iframe>
         </CardItem>
-        <div className="flex justify-between items-center mt-20">
-          <CardItem
-            translateZ={20}
-            translateX={-40}
-            className="px-4 py-2 rounded-xl text-xs font-normal text-black"
-          >
-            <CreateUpdateExerciseModal
-              dayId={dayId}
-              userId={userId}
-              name={name}
-              url={url}
-              exerciseId={_id}
-              reps={reps}
-              sets={sets}
-              variant="update"
-            />
-          </CardItem>
-          <CardItem
-            translateZ={20}
-            translateX={40}
-            className=" text-center rounded-xl bg-red-500 dark:bg-white dark:text-black text-white text-xs font-bold"
-          >
-            <DeleteWorkoutModal userId={userId} name={name} id={_id} />
-          </CardItem>
-        </div>
+        <Protect role="org:king">
+          <div className="flex justify-between items-center mt-20">
+            <CardItem
+              translateZ={20}
+              translateX={-40}
+              className="px-4 py-2 rounded-xl text-xs font-normal text-black"
+            >
+              <CreateUpdateExerciseModal
+                dayId={dayId}
+                userId={userId}
+                name={name}
+                url={url}
+                exerciseId={_id}
+                reps={reps}
+                sets={sets}
+                variant="update"
+              />
+            </CardItem>
+            <CardItem
+              translateZ={20}
+              translateX={40}
+              className=" text-center rounded-xl bg-red-500 dark:bg-white dark:text-black text-white text-xs font-bold"
+            >
+              <DeleteWorkoutModal userId={userId} name={name} id={_id} />
+            </CardItem>
+          </div>
+        </Protect>
       </CardBody>
     </CardContainer>
   );
