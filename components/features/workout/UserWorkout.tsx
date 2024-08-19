@@ -4,6 +4,7 @@ import { UserWorkoutParams, WorkoutPlan } from "@/types/workoutPlan";
 import { WorkoutDay } from "./WorkoutDay";
 import { Tabs } from "../../ui/tabs";
 import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
+import { Protect } from "@clerk/nextjs";
 
 function UserWorkout({
   workoutPlan,
@@ -12,7 +13,7 @@ function UserWorkout({
   workoutPlan: UserWorkoutParams;
   userId: string;
 }) {
-  const tabs = workoutPlan.days.map((day) => {
+  const tabs = workoutPlan?.days?.map((day) => {
     return {
       title: day.dayName,
       value: day.dayName.toLowerCase(),
@@ -26,11 +27,13 @@ function UserWorkout({
             userId={userId}
             exercises={day.exercises}
           />
-          <CreateUpdateExerciseModal
-            userId={userId}
-            dayId={day._id}
-            variant="create"
-          />
+          <Protect role="org:king">
+            <CreateUpdateExerciseModal
+              userId={userId}
+              dayId={day._id}
+              variant="create"
+            />
+          </Protect>
         </div>
       ),
     };
