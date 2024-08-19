@@ -15,7 +15,7 @@ const page = async ({ params }: UserDetailsPageParams) => {
   // Generate SAS tokens for each exercise URL
   const workoutPlanWithSasUrls = {
     ...workoutPlan,
-    days: workoutPlan.days.map((day) => ({
+    days: workoutPlan?.days.map((day) => ({
       ...day,
       exercises: day.exercises.map((exercise: Exercise) => ({
         ...exercise,
@@ -24,8 +24,6 @@ const page = async ({ params }: UserDetailsPageParams) => {
     })),
   };
 
-  console.log(workoutPlanWithSasUrls);
-  console.log(workoutPlan);
   if (!user)
     return (
       <h1 className="text-xl">
