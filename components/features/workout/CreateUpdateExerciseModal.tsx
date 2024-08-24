@@ -6,12 +6,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Form, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 
-//zod
+// zod
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createUpdateExerciseFormSchema } from "@/lib/validations/createUpdateExerciseForm/createUpdateExerciseFormValidator";
@@ -20,6 +19,8 @@ import {
   deleteSingleExercise,
 } from "@/lib/actions/exercise.actions";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { FormControl, FormField, FormItem } from "@/components/ui/form";
+import Dropdown from "@/components/ui/Dropdown";
 
 type CreateUpdateExerciseModalProps = {
   userId: string;
@@ -42,8 +43,13 @@ const CreateUpdateExerciseModal = ({
   exerciseId,
   variant,
 }: CreateUpdateExerciseModalProps) => {
-  const form = useForm<z.infer<typeof createUpdateExerciseFormSchema>>({
+  const methods = useForm<z.infer<typeof createUpdateExerciseFormSchema>>({
     resolver: zodResolver(createUpdateExerciseFormSchema),
+    defaultValues: {
+      exercise: {},
+      exerciseReps: reps?.toString() || "",
+      exerciseSets: sets?.toString() || "",
+    },
   });
 
   const onSubmit = async (
@@ -52,109 +58,102 @@ const CreateUpdateExerciseModal = ({
     if (variant === "create") {
       await createExercise({
         exercise: {
-          name: values.exerciseName,
-          url: values.exerciseUrl,
+          name: values.exercise.name,
+          url: values.exercise.azureName,
           reps: Number(values.exerciseReps),
           sets: Number(values.exerciseSets),
         },
         userId,
         dayId,
       });
-    }
-
-    if (variant === "update") {
-      await deleteSingleExercise(exerciseId);
-      await createExercise({
-        exercise: {
-          name: values.exerciseName,
-          url: values.exerciseUrl,
-          reps: Number(values.exerciseReps),
-          sets: Number(values.exerciseSets),
-        },
-        userId,
-        dayId,
-      });
+    } else if (variant === "update") {
+      if (exerciseId) {
+        await deleteSingleExercise(exerciseId);
+        await createExercise({
+          exercise: {
+            name: values.exercise.name,
+            url: values.exercise.azureName,
+            reps: Number(values.exerciseReps),
+            sets: Number(values.exerciseSets),
+          },
+          userId,
+          dayId,
+        });
+      }
     }
   };
 
   return (
-    <Dialog>
-      <DialogTrigger>
-        <p className="text-sm border p-2">
-          {variant === "create" ? "Kreiraj novu vežbu" : "izmeni"}
-        </p>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>
-            {variant === "create" ? "Kreiraj novu vežbu" : "Izmeni vežbu "}
-          </DialogTitle>
-        </DialogHeader>
-        <Form
-          onSubmit={() => {
-            form.handleSubmit(onSubmit)();
-          }}
-          {...form}
-        >
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center ">
-              <Label htmlFor="exerciseName" className="text-left">
-                Naziv Vezbe
-              </Label>
-              <Input
-                {...form.register("exerciseName")}
-                id="exerciseName"
-                defaultValue={variant === "update" ? name : ""}
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center ">
-              <Label htmlFor="exerciseUrl" className="text-left">
-                Video url
-              </Label>
-              <Input
-                {...form.register("exerciseUrl")}
-                id="exerciseUrl"
-                defaultValue={variant === "update" ? url : ""}
-                className="col-span-3"
+    <FormProvider {...methods}>
+      <Dialog>
+        <DialogTrigger>
+          <p className="text-sm border p-2">
+            {variant === "create" ? "Kreiraj novu vežbu" : "Izmeni"}
+          </p>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {variant === "create" ? "Kreiraj novu vežbu" : "Izmeni vežbu"}
+            </DialogTitle>
+          </DialogHeader>
+          <form
+            onSubmit={methods.handleSubmit(onSubmit)}
+            className="grid gap-4 py-4"
+          >
+            <div className="flex flex-col">
+              <FormField
+                control={methods.control}
+                name="exercise"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Dropdown
+                        onChangeHandler={field.onChange}
+                        value={field.value}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
               />
             </div>
             <div className="flex items-center gap-4">
-              <Label htmlFor="exerciseReps" className="text-right">
-                Ponavljanja
-              </Label>
-              <Input
-                {...form.register("exerciseReps")}
-                id="exerciseReps"
-                type="number"
-                className="col-span-3"
-                defaultValue={variant === "update" ? reps : ""}
-              />
-
-              <Label htmlFor="exerciseSets" className="text-right">
-                Serija
-              </Label>
-              <Input
-                {...form.register("exerciseSets")}
-                id="exerciseSets"
-                type="number"
-                className="col-span-3"
-                defaultValue={variant === "update" ? sets : ""}
-              />
+              <div className="flex flex-col">
+                <Label htmlFor="exerciseReps" className="text-right my-2">
+                  Ponavljanja
+                </Label>
+                <Input
+                  {...methods.register("exerciseReps")}
+                  id="exerciseReps"
+                  type="number"
+                />
+              </div>
+              <div className="flex flex-col">
+                <Label htmlFor="exerciseSets" className="text-right my-2">
+                  Serija
+                </Label>
+                <Input
+                  {...methods.register("exerciseSets")}
+                  id="exerciseSets"
+                  type="number"
+                />
+              </div>
             </div>
-          </div>
-          <DialogClose>
-            <Button
-              variant="gold"
-              type="submit"
-              disabled={form.formState.isSubmitting}
-            >
-              {variant === "create" ? "Kreiraj" : "Izmeni"}
-            </Button>
-          </DialogClose>
-        </Form>
-      </DialogContent>
-    </Dialog>
+            <div className="flex justify-end gap-4">
+              <DialogClose>
+                <Button
+                  variant="gold"
+                  type="submit"
+                  disabled={methods.formState.isSubmitting}
+                >
+                  {variant === "create" ? "Kreiraj" : "Izmeni"}
+                </Button>
+              </DialogClose>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </FormProvider>
   );
 };
 

@@ -17,65 +17,70 @@ import { Label } from "@/components/ui/label";
 import { CreateExerciseDto, Exercise } from "@/types/exercise";
 import { createWorkoutPlan } from "@/lib/actions/workoutplan.actions";
 import { CreateWorkoutPlanParams } from "@/types/workoutPlan";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createWorkoutFormSchema } from "@/lib/validations/workoutPlan/createWorkoutValidator";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
+import Dropdown from "@/components/ui/Dropdown";
 
 export function CreateWorkoutModal({ userId }: { userId: string }) {
   const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [selectedExercise, setSelectedExercise] = useState<
+    { name: string; azureName: string } | undefined
+  >(undefined);
 
   const { toast } = useToast();
+  const form = useForm<z.infer<typeof createWorkoutFormSchema>>({
+    resolver: zodResolver(createWorkoutFormSchema),
+  });
+
+  const dayRef = useRef<HTMLInputElement>(null);
+  const trainingRef = useRef<HTMLInputElement>(null);
+  const excerciseSetsRef = useRef<HTMLInputElement>(null);
+  const excerciseRepsRef = useRef<HTMLInputElement>(null);
 
   const addExercise = () => {
-    const newExercise: CreateExerciseDto = {
-      name: excerciseNameRef!.current!.value,
-      sets: parseInt(excerciseSetsRef!.current!.value),
-      reps: parseInt(excerciseRepsRef!.current!.value),
-      url: excerciseUrlRef!.current!.value,
-    };
-
-    if (
-      !newExercise.name ||
-      !newExercise.sets ||
-      !newExercise.reps ||
-      !newExercise.url
-    ) {
+    if (!selectedExercise) {
       toast({
         variant: "destructive",
-        title: "Sva polja za vezbu su obavezna!",
+        title: "Morate izabrati vežbu!",
       });
+      return;
+    }
 
+    const newExercise: CreateExerciseDto = {
+      name: selectedExercise.name,
+      sets: parseInt(excerciseSetsRef.current!.value),
+      reps: parseInt(excerciseRepsRef.current!.value),
+      url: selectedExercise.azureName,
+    };
+
+    if (!newExercise.sets || !newExercise.reps) {
+      toast({
+        variant: "destructive",
+        title: "Sva polja za vežbu su obavezna!",
+      });
       return;
     }
 
     //@ts-ignore
     setExercises((prevExercises) => [...prevExercises, newExercise]);
 
-    //reset values for excercise
-    excerciseNameRef!.current!.value = "";
-    excerciseSetsRef!.current!.value = "";
-    excerciseRepsRef!.current!.value = "";
-    excerciseUrlRef!.current!.value = "";
+    // Reset values for exercise
+    setSelectedExercise(undefined);
+    excerciseSetsRef.current!.value = "";
+    excerciseRepsRef.current!.value = "";
   };
 
-  const dayRef = useRef<HTMLInputElement>(null);
-  const trainingRef = useRef<HTMLInputElement>(null);
-  const excerciseNameRef = useRef<HTMLInputElement>(null);
-  const excerciseUrlRef = useRef<HTMLInputElement>(null);
-  const excerciseSetsRef = useRef<HTMLInputElement>(null);
-  const excerciseRepsRef = useRef<HTMLInputElement>(null);
-
-  const createWorkoutPlanOneSubmit = async () => {
+  const createWorkoutPlanOneSubmit = async (data: any) => {
     const planToSend: CreateWorkoutPlanParams = {
       userId,
       days: [
         {
-          //@ts-ignore
-          dayName: dayRef!.current!.value,
-          workoutName: trainingRef!.current!.value,
+          dayName: dayRef.current!.value,
+          workoutName: trainingRef.current!.value,
           exercises,
         },
       ],
@@ -90,19 +95,12 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
         variant: "destructive",
         title: "Sva polja za trening su obavezna!",
       });
-
       return;
     }
 
     await createWorkoutPlan(planToSend);
-
-    //reset the exercises array
     setExercises([]);
   };
-
-  const form = useForm<z.infer<typeof createWorkoutFormSchema>>({
-    resolver: zodResolver(createWorkoutFormSchema),
-  });
 
   return (
     <Dialog>
@@ -118,22 +116,22 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
             Napravi izmene trening plana za konkretno ovog korisnika.
           </DialogDescription>
         </DialogHeader>
-        <Form {...form}>
+        <form onSubmit={form.handleSubmit(createWorkoutPlanOneSubmit)}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
+              <Label htmlFor="dayName" className="text-right">
                 Dan
               </Label>
               <Input
                 required
                 ref={dayRef}
-                id="workoutDay"
+                id="dayName"
                 defaultValue="Ponedeljak"
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="training" className="text-right">
+              <Label htmlFor="workoutName" className="text-right">
                 Naziv treninga
               </Label>
               <Input
@@ -146,27 +144,10 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
           </div>
 
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center ">
-              <Label htmlFor="exerciseName" className="text-left">
-                Naziv Vezbe
-              </Label>
-              <Input
-                ref={excerciseNameRef}
-                id="exerciseName"
-                defaultValue=""
-                className="col-span-3"
-              />
-            </div>
-            {/*  ovde treba ubaciti komponentu select  */}
-            <div className="grid grid-cols-4 items-center ">
-              <Label htmlFor="exerciseUrl" className="text-left">
-                Video url
-              </Label>
-              <Input
-                ref={excerciseUrlRef}
-                id="exerciseUrl"
-                defaultValue=""
-                className="col-span-3"
+            <div className="flex flex-col">
+              <Dropdown
+                value={selectedExercise}
+                onChangeHandler={setSelectedExercise}
               />
             </div>
             <div className="flex items-center gap-4">
@@ -179,7 +160,6 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
                 type="number"
                 className="col-span-3"
               />
-
               <Label htmlFor="exerciseSets" className="text-right">
                 Serija
               </Label>
@@ -191,23 +171,22 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
               />
             </div>
             <div>
-              {exercises?.map((exercise) => (
-                <p key={exercise.url}>
+              {exercises?.map((exercise, index) => (
+                <p key={index}>
                   ✅ {exercise.name} {exercise.sets} X {exercise.reps}
                 </p>
               ))}
             </div>
           </div>
           <DialogFooter>
-            <div className="flex justify-between w-full ">
+            <div className="flex justify-between w-full">
               <Button
                 className="hover:text-white"
                 type="button"
                 onClick={addExercise}
               >
-                + Vezba
+                + Vežba
               </Button>
-
               <DialogClose>
                 <Button
                   className="hover:text-white"
@@ -219,7 +198,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
               </DialogClose>
             </div>
           </DialogFooter>
-        </Form>
+        </form>
       </DialogContent>
       <Toaster />
     </Dialog>
