@@ -4,6 +4,7 @@ import { connectToDatabase } from "../database/mongodb";
 import WorkoutPlan from "../database/mongodb/models/workoutplan.model";
 import { handleError } from "../utils";
 import { CreateExerciseDto } from "@/types/exercise";
+import Exercise from "../database/mongodb/models/exercise.model";
 
 export const deleteSingleExercise = async (exerciseId: string) => {
   try {
@@ -67,3 +68,18 @@ export const createExercise = async ({
     throw error;
   }
 };
+
+export const getAllExercises = async () => {
+  try {
+await connectToDatabase()
+
+let allExercises = await Exercise.find()
+
+return JSON.parse(JSON.stringify(allExercises))
+
+
+  } catch (error) {
+    handleError(error)
+    throw error
+  }
+}
