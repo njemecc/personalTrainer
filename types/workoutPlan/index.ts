@@ -37,11 +37,12 @@ export type UserWorkoutParams = {
 
 export type CreateWorkoutPlanParams = {
   userId: string;
-  days: [
-    {
-      dayName: string;
-      workoutName: string;
-      exercises: Exercise[];
-    }
-  ];
+  days: Day[]
 };
+
+export type Day = {
+  _id?:string;
+  dayName:string;
+  workoutName:string;
+  exercises:Exercise[]
+}
