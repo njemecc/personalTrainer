@@ -29,7 +29,7 @@ export type CreateExerciseDto = {
 };
 
 export type Exercise = {
-  _id: string;
+  _id?: string;
   name: string;
   sets: number;
   reps: number;

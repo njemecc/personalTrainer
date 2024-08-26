@@ -5,6 +5,7 @@ import WorkoutPlan from "../database/mongodb/models/workoutplan.model";
 import { handleError } from "../utils";
 import { CreateExerciseDto } from "@/types/exercise";
 import Exercise from "../database/mongodb/models/exercise.model";
+import { Day } from "@/types/workoutPlan";
 
 export const deleteSingleExercise = async (exerciseId: string) => {
   try {
@@ -18,7 +19,7 @@ export const deleteSingleExercise = async (exerciseId: string) => {
       return null;
     }
 
-    workoutPlan.days.forEach((day) => {
+    workoutPlan.days.forEach((day:Day) => {
       day.exercises = day.exercises.filter(
         (exercise) => exercise._id != exerciseId
       );
@@ -52,7 +53,7 @@ export const createExercise = async ({
       "days._id": dayId,
     });
 
-    workoutPlan.days.forEach((day) => {
+    workoutPlan.days.forEach((day:Day) => {
       if (day._id == dayId) {
         day.exercises.push(exercise);
       }
