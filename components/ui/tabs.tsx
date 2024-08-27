@@ -82,9 +82,10 @@ export const Tabs = ({
       </div>
       <FadeInDiv
         tabs={tabs}
+        //@ts-ignore
         active={active}
-        {/*@ts-ignore*/}
-        key={active.value}
+        //@ts-ignore
+        key={active.value!}
         hovering={hovering}
         className={cn("mt-32", contentClassName)}
       />
