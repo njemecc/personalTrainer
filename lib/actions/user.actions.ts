@@ -66,7 +66,6 @@ export async function deleteUser(clerkId: string) {
     if (!userToDelete) {
       throw new Error("User not found");
     }
-    //skidanje referenci ako ih ima
 
     // na kraju samo brisanje usera
     const deletedUser = await User.findByIdAndDelete(userToDelete._id);
