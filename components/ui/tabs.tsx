@@ -33,6 +33,7 @@ export const Tabs = ({
     const selectedTab = newTabs.splice(idx, 1);
     newTabs.unshift(selectedTab[0]);
     setTabs(newTabs);
+    //@ts-ignore
     setActive(newTabs[0]);
   };
 
@@ -59,16 +60,19 @@ export const Tabs = ({
               transformStyle: "preserve-3d",
             }}
           >
-            {active.value === tab.value && (
-              <motion.div
-                layoutId="clickedbutton"
-                transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                className={cn(
-                  "absolute inset-0 bg-gray-200 dark:bg-zinc-800 rounded-full ",
-                  activeTabClassName
-                )}
-              />
-            )}
+            {
+              //@ts-ignore
+              active.value === tab.value && (
+                <motion.div
+                  layoutId="clickedbutton"
+                  transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+                  className={cn(
+                    "absolute inset-0 bg-gray-200 dark:bg-zinc-800 rounded-full ",
+                    activeTabClassName
+                  )}
+                />
+              )
+            }
 
             <span className="relative block text-black dark:text-white">
               {tab.title}
@@ -78,8 +82,10 @@ export const Tabs = ({
       </div>
       <FadeInDiv
         tabs={tabs}
+        //@ts-ignore
         active={active}
-        key={active.value}
+        //@ts-ignore
+        key={active.value!}
         hovering={hovering}
         className={cn("mt-32", contentClassName)}
       />

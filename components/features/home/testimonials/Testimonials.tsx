@@ -1,6 +1,5 @@
 "use client";
 
-import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -8,11 +7,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useRef } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { testimonials } from "@/constants";
+import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { useRef } from "react";
+
 import Reveal from "@/components/ui/Reveal";
 
 const Testimonials = () => {

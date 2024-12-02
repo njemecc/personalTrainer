@@ -14,15 +14,15 @@ export function WorkoutDay({
 }) {
   return exercises.map((exercise) => (
     <SingleWorkoutCard
-      key={exercise._id}
-      _id={exercise._id}
+      key={exercise._id!}
+      _id={exercise._id!}
       name={exercise.name}
       sets={exercise.sets}
       reps={exercise.reps}
       url={exercise.url}
       userId={userId}
       dayId={dayId}
-      exerciseId={exercise._id}
+      exerciseId={exercise._id!}
     />
   ));
 }
