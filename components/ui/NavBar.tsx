@@ -10,7 +10,7 @@ const NavBar = () => {
     <header className="w-full border-b ">
       <div className="wrapper flex items-center justify-between">
         <Link href="/" className="w-46 p-bold-20">
-          Marko <span className="text-gold">Gligorijević</span>
+          Djura <span className="text-gold">Blažu</span>
         </Link>
 
         <SignedIn>
