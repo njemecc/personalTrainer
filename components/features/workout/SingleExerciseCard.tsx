@@ -54,6 +54,7 @@ const SingleExerciseCard = ({
             title={`${name}`}
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            sandbox="allow-scripts allow-same-origin"
           ></iframe>
         </CardItem>
         <Protect role="org:king">
