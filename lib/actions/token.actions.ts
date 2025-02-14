@@ -42,3 +42,4 @@ export function generateSasToken(blobName: string): string {
 
   return sasUrl;
 }
+

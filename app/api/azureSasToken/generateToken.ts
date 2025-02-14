@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { generateSasToken } from "@/lib/actions/token.actions";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log("SORRRIIII");
+
   if (req.method === "POST") {
     const { blobName } = req.body;
 
