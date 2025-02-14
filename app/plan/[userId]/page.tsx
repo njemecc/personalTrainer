@@ -10,7 +10,7 @@ const Page = async ({ params }: UserDetailsPageParams) => {
   // Generate SAS tokens for each exercise URL
   const workoutPlanWithSasUrls = {
     ...workoutPlan,
-    days: workoutPlan?.days.map((day) => ({
+    days: workoutPlan?.days.map((day: any) => ({
       ...day,
       exercises: day.exercises.map((exercise: Exercise) => ({
         ...exercise,
