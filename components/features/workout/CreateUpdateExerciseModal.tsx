@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { FormProvider, useForm } from "react-hook-form";
@@ -21,6 +22,7 @@ import {
 import { DialogClose } from "@radix-ui/react-dialog";
 import { FormControl, FormField, FormItem } from "@/components/ui/form";
 import Dropdown from "@/components/ui/Dropdown";
+import { toast } from "@/components/ui/use-toast";
 
 type CreateUpdateExerciseModalProps = {
   userId: string;
@@ -31,6 +33,7 @@ type CreateUpdateExerciseModalProps = {
   url?: string;
   exerciseId?: string;
   variant: "create" | "update";
+  description?: string;
 };
 
 const CreateUpdateExerciseModal = ({
@@ -42,6 +45,7 @@ const CreateUpdateExerciseModal = ({
   url,
   exerciseId,
   variant,
+  description
 }: CreateUpdateExerciseModalProps) => {
   const methods = useForm<z.infer<typeof createUpdateExerciseFormSchema>>({
     resolver: zodResolver(createUpdateExerciseFormSchema),
@@ -49,12 +53,29 @@ const CreateUpdateExerciseModal = ({
       exercise: {},
       exerciseReps: reps?.toString() || "",
       exerciseSets: sets?.toString() || "",
+      exerciseDescription: variant === "update" ? description : "",
     },
   });
 
   const onSubmit = async (
     values: z.infer<typeof createUpdateExerciseFormSchema>
   ) => {
+
+    console.log("usao u funkciju")
+
+    if(!values.exercise.azureName || values.exerciseDescription || values.exerciseReps == "" || values.exerciseSets == "") {
+
+
+      toast({
+        variant: "destructive",
+        title: "Morate uneti sve podatke!",
+      });
+
+      console.log("Greska")
+
+      return;
+    }
+
     if (variant === "create") {
       await createExercise({
         exercise: {
@@ -62,6 +83,7 @@ const CreateUpdateExerciseModal = ({
           url: values.exercise.azureName,
           reps: Number(values.exerciseReps),
           sets: Number(values.exerciseSets),
+          description: values.exerciseDescription,
         },
         userId,
         dayId,
@@ -75,6 +97,7 @@ const CreateUpdateExerciseModal = ({
             url: values.exercise.azureName,
             reps: Number(values.exerciseReps),
             sets: Number(values.exerciseSets),
+            description: values.exerciseDescription,
           },
           userId,
           dayId,
@@ -88,7 +111,7 @@ const CreateUpdateExerciseModal = ({
       <Dialog>
         <DialogTrigger>
           <p className="text-sm border p-2">
-            {variant === "create" ? "Kreiraj novu vežbu" : "Izmeni"}
+            {variant === "create" ? "Dodaj novu vežbu" : "Izmeni"}
           </p>
         </DialogTrigger>
         <DialogContent>
@@ -117,8 +140,10 @@ const CreateUpdateExerciseModal = ({
                 )}
               />
             </div>
+
+            {/* Ponavljanja i serije */}
             <div className="flex items-center gap-4">
-              <div className="flex flex-col">
+              <div className="flex flex-col w-1/2">
                 <Label htmlFor="exerciseReps" className="text-right my-2">
                   Ponavljanja
                 </Label>
@@ -128,7 +153,7 @@ const CreateUpdateExerciseModal = ({
                   type="number"
                 />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col w-1/2">
                 <Label htmlFor="exerciseSets" className="text-right my-2">
                   Serija
                 </Label>
@@ -139,6 +164,21 @@ const CreateUpdateExerciseModal = ({
                 />
               </div>
             </div>
+
+            {/* Tekstualni opis */}
+            <div className="flex flex-col mt-4">
+              <Label htmlFor="exerciseDescription" className="text-right my-2">
+                Opis vežbe
+              </Label>
+              <Textarea
+                {...methods.register("exerciseDescription")}
+                id="exerciseDescription"
+                className="w-full min-h-[150px]"
+                placeholder="Unesite detaljan opis vežbe..."
+              />
+            </div>
+
+            {/* Dugmad */}
             <div className="flex justify-end gap-4">
               <DialogClose>
                 <Button

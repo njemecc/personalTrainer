@@ -4,7 +4,7 @@ import { UserWorkoutParams, WorkoutPlan } from "@/types/workoutPlan";
 import { WorkoutDay } from "./WorkoutDay";
 import { Tabs } from "../../ui/tabs";
 import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
-import { Protect } from "@clerk/nextjs";
+import { Protect, useUser } from "@clerk/nextjs";
 
 function UserWorkout({
   workoutPlan,
