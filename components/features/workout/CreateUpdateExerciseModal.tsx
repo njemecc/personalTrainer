@@ -22,6 +22,7 @@ import {
 import { DialogClose } from "@radix-ui/react-dialog";
 import { FormControl, FormField, FormItem } from "@/components/ui/form";
 import Dropdown from "@/components/ui/Dropdown";
+import { toast } from "@/components/ui/use-toast";
 
 type CreateUpdateExerciseModalProps = {
   userId: string;
@@ -32,6 +33,7 @@ type CreateUpdateExerciseModalProps = {
   url?: string;
   exerciseId?: string;
   variant: "create" | "update";
+  description?: string;
 };
 
 const CreateUpdateExerciseModal = ({
@@ -43,6 +45,7 @@ const CreateUpdateExerciseModal = ({
   url,
   exerciseId,
   variant,
+  description
 }: CreateUpdateExerciseModalProps) => {
   const methods = useForm<z.infer<typeof createUpdateExerciseFormSchema>>({
     resolver: zodResolver(createUpdateExerciseFormSchema),
@@ -50,13 +53,29 @@ const CreateUpdateExerciseModal = ({
       exercise: {},
       exerciseReps: reps?.toString() || "",
       exerciseSets: sets?.toString() || "",
-      exerciseDescription: "",
+      exerciseDescription: variant === "update" ? description : "",
     },
   });
 
   const onSubmit = async (
     values: z.infer<typeof createUpdateExerciseFormSchema>
   ) => {
+
+    console.log("usao u funkciju")
+
+    if(!values.exercise.azureName || values.exerciseDescription || values.exerciseReps == "" || values.exerciseSets == "") {
+
+
+      toast({
+        variant: "destructive",
+        title: "Morate uneti sve podatke!",
+      });
+
+      console.log("Greska")
+
+      return;
+    }
+
     if (variant === "create") {
       await createExercise({
         exercise: {
@@ -92,7 +111,7 @@ const CreateUpdateExerciseModal = ({
       <Dialog>
         <DialogTrigger>
           <p className="text-sm border p-2">
-            {variant === "create" ? "Kreiraj novu vežbu" : "Izmeni"}
+            {variant === "create" ? "Dodaj novu vežbu" : "Izmeni"}
           </p>
         </DialogTrigger>
         <DialogContent>
