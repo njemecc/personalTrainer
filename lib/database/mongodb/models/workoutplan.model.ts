@@ -27,6 +27,7 @@ const WorkoutPlanSchema = new Schema({
           sets: { type: Number },
           reps: { type: Number },
           url: { type: String },
+          description:{type:String}
         },
       ],
     },
