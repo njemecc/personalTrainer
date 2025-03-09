@@ -40,6 +40,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
   const trainingRef = useRef<HTMLInputElement>(null);
   const excerciseSetsRef = useRef<HTMLInputElement>(null);
   const excerciseRepsRef = useRef<HTMLInputElement>(null);
+  const exerciseDescriptionRef = useRef<HTMLInputElement>(null); // Added exercise description ref
 
   const addExercise = () => {
     if (!selectedExercise) {
@@ -55,9 +56,10 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
       sets: parseInt(excerciseSetsRef.current!.value),
       reps: parseInt(excerciseRepsRef.current!.value),
       url: selectedExercise.azureName,
+      description: exerciseDescriptionRef.current!.value,
     };
 
-    if (!newExercise.sets || !newExercise.reps) {
+    if (!newExercise.sets || !newExercise.reps || !newExercise.description) {
       toast({
         variant: "destructive",
         title: "Sva polja za vežbu su obavezna!",
@@ -72,6 +74,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
     setSelectedExercise(undefined);
     excerciseSetsRef.current!.value = "";
     excerciseRepsRef.current!.value = "";
+    exerciseDescriptionRef.current!.value = ""; // Reset description
   };
 
   const createWorkoutPlanOneSubmit = async (data: any) => {
@@ -89,6 +92,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
     if (
       !planToSend.days[0].dayName ||
       !planToSend.days[0].workoutName ||
+    
       planToSend?.days[0]?.exercises.length === 0
     ) {
       toast({
@@ -120,7 +124,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="dayName" className="text-right">
-                Dan
+                Naziv treninga
               </Label>
               <Input
                 required
@@ -132,7 +136,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="workoutName" className="text-right">
-                Naziv treninga
+                Podnaziv treninga
               </Label>
               <Input
                 ref={trainingRef}
@@ -141,6 +145,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
                 className="col-span-3"
               />
             </div>
+
           </div>
 
           <div className="grid gap-4 py-4">
@@ -167,6 +172,16 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
                 ref={excerciseSetsRef}
                 id="exerciseSets"
                 type="number"
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="exerciseDescription" className="text-right">
+                Opis vežbe
+              </Label>
+              <Input
+                ref={exerciseDescriptionRef}
+                id="exerciseDescription"
                 className="col-span-3"
               />
             </div>
