@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { FormProvider, useForm } from "react-hook-form";
@@ -49,6 +50,7 @@ const CreateUpdateExerciseModal = ({
       exercise: {},
       exerciseReps: reps?.toString() || "",
       exerciseSets: sets?.toString() || "",
+      exerciseDescription: "",
     },
   });
 
@@ -62,6 +64,7 @@ const CreateUpdateExerciseModal = ({
           url: values.exercise.azureName,
           reps: Number(values.exerciseReps),
           sets: Number(values.exerciseSets),
+          description: values.exerciseDescription,
         },
         userId,
         dayId,
@@ -75,6 +78,7 @@ const CreateUpdateExerciseModal = ({
             url: values.exercise.azureName,
             reps: Number(values.exerciseReps),
             sets: Number(values.exerciseSets),
+            description: values.exerciseDescription,
           },
           userId,
           dayId,
@@ -117,8 +121,10 @@ const CreateUpdateExerciseModal = ({
                 )}
               />
             </div>
+
+            {/* Ponavljanja i serije */}
             <div className="flex items-center gap-4">
-              <div className="flex flex-col">
+              <div className="flex flex-col w-1/2">
                 <Label htmlFor="exerciseReps" className="text-right my-2">
                   Ponavljanja
                 </Label>
@@ -128,7 +134,7 @@ const CreateUpdateExerciseModal = ({
                   type="number"
                 />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col w-1/2">
                 <Label htmlFor="exerciseSets" className="text-right my-2">
                   Serija
                 </Label>
@@ -139,6 +145,21 @@ const CreateUpdateExerciseModal = ({
                 />
               </div>
             </div>
+
+            {/* Tekstualni opis */}
+            <div className="flex flex-col mt-4">
+              <Label htmlFor="exerciseDescription" className="text-right my-2">
+                Opis vežbe
+              </Label>
+              <Textarea
+                {...methods.register("exerciseDescription")}
+                id="exerciseDescription"
+                className="w-full min-h-[150px]"
+                placeholder="Unesite detaljan opis vežbe..."
+              />
+            </div>
+
+            {/* Dugmad */}
             <div className="flex justify-end gap-4">
               <DialogClose>
                 <Button
