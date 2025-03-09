@@ -17,4 +17,5 @@ export const createUpdateExerciseFormSchema = z.object({
   exerciseSets: z.string({
     required_error: "Broj serija je obavezno polje.",
   }),
+  exerciseDescription:z.string()
 });
