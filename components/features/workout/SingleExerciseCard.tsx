@@ -90,6 +90,7 @@ const SingleExerciseCard = ({
                 reps={reps}
                 sets={sets}
                 variant="update"
+                description={description}
               />
             </CardItem>
             <CardItem
