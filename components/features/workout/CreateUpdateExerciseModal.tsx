@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import {
   DialogHeader,
@@ -63,7 +65,7 @@ const CreateUpdateExerciseModal = ({
 
     console.log("usao u funkciju")
 
-    if(!values.exercise.azureName || values.exerciseDescription || values.exerciseReps == "" || values.exerciseSets == "") {
+    if(!values.exercise.azureName || !values.exerciseDescription || values.exerciseReps == "" || values.exerciseSets == "") {
 
 
       toast({
@@ -71,7 +73,7 @@ const CreateUpdateExerciseModal = ({
         title: "Morate uneti sve podatke!",
       });
 
-      console.log("Greska")
+      console.log(values)
 
       return;
     }
@@ -88,9 +90,17 @@ const CreateUpdateExerciseModal = ({
         userId,
         dayId,
       });
+
+      toast({
+        variant: "default",
+        title: "Uspešno dodata vežba!",
+      });
+
+      window.location.reload()
     } else if (variant === "update") {
+
       if (exerciseId) {
-        await deleteSingleExercise(exerciseId);
+        await deleteSingleExercise(exerciseId,userId);
         await createExercise({
           exercise: {
             name: values.exercise.name,
@@ -102,6 +112,13 @@ const CreateUpdateExerciseModal = ({
           userId,
           dayId,
         });
+
+        toast({
+          variant: "default",
+          title: "Uspešno izmenjena vežba!",
+        });
+
+        window.location.reload()
       }
     }
   };
