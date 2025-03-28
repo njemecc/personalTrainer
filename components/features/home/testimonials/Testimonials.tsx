@@ -9,10 +9,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useRef } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { testimonials } from "@/constants";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import Reveal from "@/components/ui/Reveal";
 
 const Testimonials = () => {

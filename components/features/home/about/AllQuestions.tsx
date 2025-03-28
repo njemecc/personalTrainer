@@ -17,8 +17,8 @@ const AllQuestions = () => {
         Došao si na pravo <span className="text-primary">mesto</span>.
       </p>
       <p className="text-justify tracking-tighter mb-5 lg:p-regular-20 mt-5 lg:text-left text-white">
-        Ne moraš se više brinuti oko ovih pitanja i zamarati mišlju: 'Da li sam
-        sve dobro napravio ili sam mogao i bolje? .
+        Ne moraš se više brinuti oko ovih pitanja i zamarati mišlju: Da li sam
+        sve dobro napravio ili sam mogao i bolje?.
       </p>
     </>
   );

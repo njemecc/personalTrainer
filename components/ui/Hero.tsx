@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const Hero = () => {
   return (
     <div className="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
@@ -37,19 +39,19 @@ export const Hero = () => {
             molestiae alias ea rem, eos ratione facilis nobis?
           </p>
           <div className="flex items-center">
-            <a
+            <Link
               href="/"
               className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-black transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
             >
               Započnimo
-            </a>
-            <a
+            </Link>
+            <Link
               href="/"
               aria-label=""
               className="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700"
             >
               O meni
-            </a>
+            </Link>
           </div>
         </div>
       </div>
