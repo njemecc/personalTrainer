@@ -5,6 +5,7 @@ import { WorkoutDay } from "./WorkoutDay";
 import { Tabs } from "../../ui/tabs";
 import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
 import { Protect, useUser } from "@clerk/nextjs";
+import DeleteEntireWorkoutModal from "./DeleteEntireWorkoutModal";
 
 function UserWorkout({
   workoutPlan,
@@ -28,11 +29,20 @@ function UserWorkout({
             exercises={day.exercises}
           />
           <Protect role="org:king">
-            <CreateUpdateExerciseModal
-              userId={userId}
-              dayId={day._id}
-              variant="create"
-            />
+          <div className="flex justify-between items-center">
+  <CreateUpdateExerciseModal
+    userId={userId}
+    dayId={day._id}
+    variant="create"
+  />
+
+  <DeleteEntireWorkoutModal
+    userId={userId}
+    id={day._id}
+    name={day.dayName}
+  />
+</div>
+
           </Protect>
         </div>
       ),
