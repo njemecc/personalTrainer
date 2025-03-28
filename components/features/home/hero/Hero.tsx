@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Hero.module.css";
 import { useDynamicText } from "./useDynamicText";
+import Link from "next/link";
 
 export const Hero = () => {
   const { text } = useDynamicText();
@@ -28,12 +29,12 @@ export const Hero = () => {
             delectus, assumenda aliquam.
           </p>
           <div className="flex items-center">
-            <a
+            <Link
               href="/"
               className="p-regular-20 hover:bg-white font-semibold hover:text-black inline-flex items-center justify-center h-12 px-6 mr-6  tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
             >
               Započnimo
-            </a>
+            </Link>
           </div>
         </div>
       </div>
