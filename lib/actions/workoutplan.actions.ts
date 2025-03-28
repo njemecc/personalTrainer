@@ -20,6 +20,29 @@ export const getWorkoutplanByUserId = async (id: string) => {
   }
 };
 
+export const deleteWorkoutPlan = async (userId: string, dayId: string) => {
+
+  try {
+    await connectToDatabase();
+
+    const updatedWorkoutPlan = await WorkoutPlan.findOneAndUpdate(
+      { userId },
+      { $pull: { days: { _id: dayId } } },
+      { new: true }
+
+    );
+
+    if (!updatedWorkoutPlan) return null;
+
+    revalidatePath(`/admin/users`);
+    return JSON.parse(JSON.stringify(updatedWorkoutPlan));
+
+  } catch (error) {
+    handleError(error);
+  }
+
+}
+
 export const createWorkoutPlan = async (
   newWorkout: CreateWorkoutPlanParams
 ) => {
