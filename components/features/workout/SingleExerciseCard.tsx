@@ -3,6 +3,7 @@ import React from "react";
 import DeleteWorkoutModal from "./DeleteWorkoutModal";
 import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
 import { Protect } from "@clerk/nextjs";
+import ExerciseDescriptionModal from "./ExerciseDescriptionModal";
 
 type SingleExerciseCardParams = {
   name: string;
@@ -13,6 +14,7 @@ type SingleExerciseCardParams = {
   userId: string;
   dayId: string;
   exerciseId: string;
+  description: string;
 };
 
 const SingleExerciseCard = ({
@@ -24,6 +26,7 @@ const SingleExerciseCard = ({
   userId,
   dayId,
   exerciseId,
+  description,
 }: SingleExerciseCardParams) => {
   return (
     <CardContainer className="inter-var">
@@ -37,9 +40,10 @@ const SingleExerciseCard = ({
         <CardItem
           as="p"
           translateZ="60"
-          className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+          className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300 flex justify-between"
         >
           {`${sets} serije ${reps} ponavljanja`}
+        
         </CardItem>
         <CardItem
           translateZ="100"
@@ -52,13 +56,26 @@ const SingleExerciseCard = ({
             className="w-full  md:h-[15rem]"
             src={`${url}`}
             title={`${name}`}
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             sandbox="allow-scripts allow-same-origin"
           ></iframe>
         </CardItem>
+
+        {
+          // detalji
+        }
+        <div className="flex justify-between items-center mt-20">
+          <CardItem
+            translateZ={20}
+            translateX={40}
+            className=" text-center rounded-xl bg-primary dark:bg-white dark:text-black text-white text-xs font-bold"
+          >
+            <ExerciseDescriptionModal description={description} name={name} />
+          </CardItem>
+        </div>
         <Protect role="org:king">
-          <div className="flex justify-between items-center mt-20">
+          <div className="flex justify-between items-center mt-10">
             <CardItem
               translateZ={20}
               translateX={-40}
@@ -73,6 +90,7 @@ const SingleExerciseCard = ({
                 reps={reps}
                 sets={sets}
                 variant="update"
+                description={description}
               />
             </CardItem>
             <CardItem

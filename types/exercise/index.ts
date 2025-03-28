@@ -7,6 +7,7 @@ export type ExerciseDetails = {
   weight: number;
   day: string;
   time: string;
+  description:string
 };
 
 export type ExerciseDetailsDTO = {
@@ -19,6 +20,7 @@ export type ExerciseDetailsDTO = {
   exerciseVideoUrl: string;
   exerciseVideoDescription: string;
   exerciseVideoCategory: string;
+  description:string
 };
 
 export type CreateExerciseDto = {
@@ -26,6 +28,7 @@ export type CreateExerciseDto = {
   sets: number;
   reps: number;
   url: string;
+  description:string
 };
 
 export type Exercise = {
@@ -34,4 +37,5 @@ export type Exercise = {
   sets: number;
   reps: number;
   url: string;
+  description:string
 };

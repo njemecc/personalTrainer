@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
+import { clerkClient } from "@clerk/nextjs";
+
 import { Textarea } from "@/components/ui/textarea";
 
 import { Input } from "@/components/ui/input";
@@ -70,6 +72,14 @@ const SurveyForm = () => {
       userId: user.publicMetadata.userId,
       ...values,
     });
+
+    
+    //@ts-ignore
+      await clerkClient.users.updateUserMetadata(user?.publicMetadata?.userId!, {
+            publicMetadata: {
+              isSurveyCompleted:"true"
+            },
+          });
   };
 
   return (

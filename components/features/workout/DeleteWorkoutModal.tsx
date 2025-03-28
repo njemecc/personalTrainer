@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Dialog,
   DialogContent,
@@ -11,6 +13,8 @@ import { Button } from "@/components/ui/button";
 import { deleteSingleExercise } from "@/lib/actions/exercise.actions";
 
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const DeleteWorkoutModal = ({
   name,
@@ -21,8 +25,14 @@ const DeleteWorkoutModal = ({
   id: string;
   userId: string;
 }) => {
+
+
+  const router = useRouter();
+
   const deleteExercise = async () => {
-    await deleteSingleExercise(id);
+    await deleteSingleExercise(id,userId);
+    window.location.reload()
+    //  router.refresh();
   };
 
   return (
