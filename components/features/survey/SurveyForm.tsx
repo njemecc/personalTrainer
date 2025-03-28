@@ -75,7 +75,7 @@ const SurveyForm = () => {
 
     
     //@ts-ignore
-      await clerkClient.users.updateUserMetadata(user?.publicMetadata?.userId!, {
+      await clerkClient.users.updateUserMetadata(user?.id, {
             publicMetadata: {
               isSurveyCompleted:"true"
             },
