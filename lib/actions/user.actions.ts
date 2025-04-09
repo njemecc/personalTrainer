@@ -5,6 +5,7 @@ import { handleError } from "../utils";
 import { connectToDatabase } from "../database/mongodb";
 import User from "../database/mongodb/models/user.model";
 import { revalidatePath } from "next/cache";
+import { clerkClient } from "@clerk/nextjs";
 
 export const getAllUsers = async () => {
   try {
@@ -76,4 +77,21 @@ export async function deleteUser(clerkId: string) {
   } catch (error) {
     handleError(error);
   }
+
+}
+
+
+
+
+export const setSurveyCompletedOnClerk = async (userId: string) => {
+  try {
+    await clerkClient.users.updateUserMetadata(userId, {
+      privateMetadata: {
+        isSurveyCompleted: "true"
+      }
+    })
+  } catch (error) {
+    handleError(error)
+  }
+
 }

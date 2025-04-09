@@ -48,11 +48,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-//redux
 
 import SurveyPagination from "./SurveyPagination";
 import { useUser } from "@clerk/nextjs";
 import { createSurvey } from "@/lib/actions/survey.actions";
+import { setSurveyCompletedOnClerk } from "@/lib/actions/user.actions";
 
 const SurveyForm = () => {
   const { user } = useUser();
@@ -67,18 +67,22 @@ const SurveyForm = () => {
   const [page, setPage] = useState<number>(1);
 
   const onSubmit = async (values: z.infer<typeof surveyFormSchema>) => {
-    const survey = await createSurvey({
-      //@ts-ignore
-      userId: user.publicMetadata.userId,
-      ...values,
-    });
 
-          //@ts-ignore
-      await clerkClient.users.updateUserMetadata(user?.id, {
-            publicMetadata: {
-              isSurveyCompleted:"true"
-            },
-          });
+    try {
+
+      const survey = await createSurvey({
+        //@ts-ignore
+        userId: user.publicMetadata.userId,
+        ...values,
+      });
+  
+      //@ts-ignore
+       await setSurveyCompletedOnClerk(user?.id);
+      
+    } catch (error) {
+      console.error("Greška pri slanju forme:", error);
+    }
+    
   };
 
   return (
