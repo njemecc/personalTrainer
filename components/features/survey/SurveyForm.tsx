@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
-import { clerkClient } from "@clerk/nextjs";
 
 import { Textarea } from "@/components/ui/textarea";
 
@@ -26,7 +25,7 @@ import { surveyFormSchema } from "@/lib/validations/survey/surveyValidator";
 
 //hooks
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 //Select
 import {
@@ -70,12 +69,23 @@ const SurveyForm = () => {
 
     try {
 
+      console.log("PUBLIC METADATA:",user?.publicMetadata)
+
+      if (!user?.publicMetadata?.userId) {
+        console.error("User ID iz baze nije dostupan!");
+        return;
+      }      
+
+
       const survey = await createSurvey({
         //@ts-ignore
         userId: user.publicMetadata.userId,
         ...values,
       });
   
+      console.log("CLERK ID :",user?.id)
+
+
       //@ts-ignore
        await setSurveyCompletedOnClerk(user?.id);
       
