@@ -1,7 +1,6 @@
 "use client"
 import NavBar from "@/components/ui/NavBar";
 import { Footer } from "@/components/ui/Footer";
-import { useUser } from "@clerk/nextjs";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
 
