@@ -25,7 +25,7 @@ import { surveyFormSchema } from "@/lib/validations/survey/surveyValidator";
 
 //hooks
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //Select
 import {
@@ -49,12 +49,26 @@ import {
 
 
 import SurveyPagination from "./SurveyPagination";
-import { useUser } from "@clerk/nextjs";
+import { useUser} from "@clerk/nextjs";
 import { createSurvey } from "@/lib/actions/survey.actions";
 import { setSurveyCompletedOnClerk } from "@/lib/actions/user.actions";
 
 const SurveyForm = () => {
-  const { user } = useUser();
+  const { user,isLoaded } = useUser();
+
+
+  useEffect(() => {
+    if (isLoaded && user && !user.publicMetadata.userId) {
+      const interval = setInterval(async () => {
+        await user.reload(); 
+        if (user.publicMetadata.userId) {
+          clearInterval(interval);
+        }
+      }, 500);
+  
+      return () => clearInterval(interval);
+    } 
+  }, [isLoaded, user]);
 
   const [statusZaposlenja, setStatusZaposlenja] = useState<String>("");
   const [ranijeTrenirali, setRanijeTrenirali] = useState<String>("");
@@ -69,6 +83,8 @@ const SurveyForm = () => {
 
     try {
 
+      console.log("PUBLIC METADATA:",user?.publicMetadata)
+      console.log("USER:",user)
       console.log("PUBLIC METADATA:",user?.publicMetadata)
 
       if (!user?.publicMetadata?.userId) {
