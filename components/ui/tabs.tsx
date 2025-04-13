@@ -25,7 +25,6 @@ export const Tabs = ({
 }) => {
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
   const [active, setActive] = useState<Tab>(propTabs[0]);
-  
 
   const moveSelectedTabToTop = (idx: number) => {
     const newTabs = [...propTabs];
@@ -58,7 +57,7 @@ export const Tabs = ({
               transformStyle: "preserve-3d",
             }}
           >
-            {active.value === tab.value && (
+            {active?.value === tab?.value && (
               <motion.div
                 layoutId="clickedbutton"
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
@@ -78,7 +77,7 @@ export const Tabs = ({
       <FadeInDiv
         tabs={tabs}
         active={active}
-        key={active.value}
+        key={active?.value}
         hovering={hovering}
         className={cn("mt-32", contentClassName)}
       />

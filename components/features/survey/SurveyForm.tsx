@@ -52,9 +52,12 @@ import SurveyPagination from "./SurveyPagination";
 import { useUser} from "@clerk/nextjs";
 import { createSurvey } from "@/lib/actions/survey.actions";
 import { setSurveyCompletedOnClerk } from "@/lib/actions/user.actions";
+import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const SurveyForm = () => {
   const { user,isLoaded } = useUser();
+  const router = useRouter();
 
 
   useEffect(() => {
@@ -82,11 +85,6 @@ const SurveyForm = () => {
   const onSubmit = async (values: z.infer<typeof surveyFormSchema>) => {
 
     try {
-
-      console.log("PUBLIC METADATA:",user?.publicMetadata)
-      console.log("USER:",user)
-      console.log("PUBLIC METADATA:",user?.publicMetadata)
-
       if (!user?.publicMetadata?.userId) {
         console.error("User ID iz baze nije dostupan!");
         return;
@@ -98,12 +96,18 @@ const SurveyForm = () => {
         userId: user.publicMetadata.userId,
         ...values,
       });
-  
-      console.log("CLERK ID :",user?.id)
 
 
       //@ts-ignore
        await setSurveyCompletedOnClerk(user?.id);
+
+
+      toast({
+               variant: "default",
+               title: "Uspešno izmenjena vežba!",
+             });
+
+             router.push("/")
       
     } catch (error) {
       console.error("Greška pri slanju forme:", error);

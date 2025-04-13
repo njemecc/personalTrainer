@@ -8,23 +8,23 @@ const Page = async ({ params }: UserDetailsPageParams) => {
   const workoutPlan = await getWorkoutplanByUserId(params.userId);
 
   // Generate SAS tokens for each exercise URL
-  const workoutPlanWithSasUrls = {
-    ...workoutPlan,
-    days: workoutPlan?.days.map((day: any) => ({
-      ...day,
-      exercises: day.exercises.map((exercise: Exercise) => ({
-        ...exercise,
-        url: generateSasToken(exercise.url), // Generate SAS token
-      })),
-    })),
-  };
+  // const workoutPlanWithSasUrls = {
+  //   ...workoutPlan,
+  //   days: workoutPlan?.days.map((day: any) => ({
+  //     ...day,
+  //     exercises: day.exercises.map((exercise: Exercise) => ({
+  //       ...exercise,
+  //       url: generateSasToken(exercise.url), // Generate SAS token
+  //     })),
+  //   })),
+  // };
 
   return (
     <div>
       {params.userId && workoutPlan ? (
         <UserWorkout
           userId={params.userId}
-          workoutPlan={workoutPlanWithSasUrls}
+          workoutPlan={workoutPlan}
         />
       ) : (
         <h1 className="text-lg md:text-3xl text-center mt-10 ">

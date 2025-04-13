@@ -13,16 +13,16 @@ const page = async ({ params }: UserDetailsPageParams) => {
   const workoutPlan = await getWorkoutplanByUserId(params.userId);
 
   // Generate SAS tokens for each exercise URL
-  const workoutPlanWithSasUrls = {
-    ...workoutPlan,
-    days: workoutPlan?.days.map((day: any) => ({
-      ...day,
-      exercises: day.exercises.map((exercise: Exercise) => ({
-        ...exercise,
-        url: generateSasToken(exercise.url), // Generate SAS token
-      })),
-    })),
-  };
+  // const workoutPlanWithSasUrls = {
+  //   ...workoutPlan,
+  //   days: workoutPlan?.days.map((day: any) => ({
+  //     ...day,
+  //     exercises: day.exercises.map((exercise: Exercise) => ({
+  //       ...exercise,
+  //       url: generateSasToken(exercise.url), // Generate SAS token
+  //     })),
+  //   })),
+  // };
 
   if (!user)
     return (
@@ -38,10 +38,10 @@ const page = async ({ params }: UserDetailsPageParams) => {
         <span className="text-gold">Klijentov </span> program
       </h1>
       <CreateWorkoutModal userId={params.userId} />
-      {workoutPlanWithSasUrls ? (
+      {workoutPlan ? (
         <UserWorkout
           userId={params.userId}
-          workoutPlan={workoutPlanWithSasUrls}
+          workoutPlan={workoutPlan}
         />
       ) : (
         <h1>❌ Ne postoji trening plan za ovog klijenta još uvek.</h1>

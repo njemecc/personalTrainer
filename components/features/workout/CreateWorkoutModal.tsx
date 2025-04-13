@@ -28,7 +28,7 @@ import Dropdown from "@/components/ui/Dropdown";
 export function CreateWorkoutModal({ userId }: { userId: string }) {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [selectedExercise, setSelectedExercise] = useState<
-    { name: string; azureName: string } | undefined
+    { name: string; url: string } | undefined
   >(undefined);
 
   const { toast } = useToast();
@@ -55,7 +55,7 @@ export function CreateWorkoutModal({ userId }: { userId: string }) {
       name: selectedExercise.name,
       sets: parseInt(excerciseSetsRef.current!.value),
       reps: parseInt(excerciseRepsRef.current!.value),
-      url: selectedExercise.azureName,
+      url: selectedExercise.url,
       description: exerciseDescriptionRef.current!.value,
     };
 

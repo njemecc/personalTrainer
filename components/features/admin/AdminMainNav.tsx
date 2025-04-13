@@ -134,7 +134,7 @@ const AdminMainNav = ({ variant }: AdminNavbarProps) => {
         <li>
           <StyledNavLink
             as={variant === "mobile" ? "mobile" : ""}
-            href="/gallery"
+            href="/admin/galerija"
           >
             <RiFolderVideoFill />
             <span>Galerija Video Vežbi</span>
