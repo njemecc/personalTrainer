@@ -26,3 +26,9 @@ export type UpdateExerciseVideoParams = {
   description: string;
   category: string;
 };
+
+export type Video = {
+  _id: string;
+  name: string;
+  url: string;
+};
