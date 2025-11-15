@@ -31,7 +31,7 @@ export function MobileAdminNavbar() {
       </SheetTrigger>
       <SheetContent side="left">
         <SheetHeader>
-          <SheetTitle>Dobrodošao Marko</SheetTitle>
+          <SheetTitle>Dobrodošao</SheetTitle>
           <SheetDescription>
             Ovde možeš upravljati korisnicima i koristiti svoje admin
             funkcionalnosti.

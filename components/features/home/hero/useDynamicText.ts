@@ -8,7 +8,10 @@ export const useDynamicText = () => {
   const [text, setText] = useState("");
   const [delta, setDelta] = useState(50 - Math.random() * 50);
   const [index, setIndex] = useState(1);
-  const toRotate = ["Dosta sa Izgovorima.", "Krenimo odmah !"];
+  const toRotate = [
+    "Dobrodošli u svet transformacije.",
+    "Vaš lični fitnes trener!",
+  ];
   const period = 1500;
 
   useEffect(() => {

@@ -12,6 +12,10 @@ export const headerLinks = [
     route: "/plan",
   },
   {
+    label: "Ishrana",
+     route:"/ishrana"
+  },
+  {
     label: "Anketa",
     route: "/survey",
   },
@@ -49,19 +53,19 @@ export const pricingCardContent = [
 
 export const aboutSectionQuestions = [
   {
-    text: "Da li si dobro sastavio svoj plan treninga?",
+    text: "Izgubiš kilograme i oblikuješ svoje telo.",
     class: "our-p-tag",
   },
   {
-    text: "Da li ti je dovoljno da treniraš 3 puta nedeljno ili ti je to malo?",
+    text: "Dobiješ mišićnu masu i povećaš snagu.",
     class: "our-p-tag",
   },
   {
-    text: "Da li ti je izbor namirnica adekvatan za ono što želiš postići?",
+    text: "Poboljšaš kondiciju i osećaćaš se energičnije.",
     class: "our-p-tag",
   },
   {
-    text: "Da li jedeš dovoljno hrane?",
+    text: "Usvojiš zdrav način života koji će trajati zauvek!",
     class: "our-p-tag",
   },
 

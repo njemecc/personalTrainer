@@ -78,16 +78,45 @@ const DodajPlanIshrane = ({ isOpen, onClose, userId, onPlanAdded }: DodajPlanIsh
       )
     : nutritionPlans;
   
+  // Enhanced validation and debugging
+  useEffect(() => {
+    // Validate userId when component mounts
+    if (!userId) {
+      console.error("UserId not provided to DodajPlanIshrane component");
+      console.error("Component Stack:", new Error().stack);
+    } else {
+      console.log("DodajPlanIshrane received valid userId:", userId);
+    }
+  }, [userId]);
+
   const handleAssignPlan = async () => {
-    if (!selectedPlan) return;
+    if (!selectedPlan) {
+      alert("Molimo izaberite plan ishrane pre dodavanja.");
+      return;
+    }
+    
+    if (!userId) {
+      alert("Greška: ID korisnika nedostaje. Molimo osvežite stranicu i pokušajte ponovo.");
+      console.error("Missing userId in DodajPlanIshrane. Value:", userId);
+      return;
+    }
     
     setIsSubmitting(true);
     try {
-      await assignNutritionPlanToUser(userId, selectedPlan);
+      console.log("Attempting to assign plan. UserId:", userId, "PlanId:", selectedPlan);
+      const result = await assignNutritionPlanToUser(userId, selectedPlan);
+      console.log("Plan successfully assigned:", result);
       onPlanAdded?.();
       onClose();
     } catch (error) {
       console.error("Greška pri dodavanju plana ishrane:", error);
+      let errorMessage = "Došlo je do greške prilikom dodavanja plana ishrane. Molimo pokušajte ponovo.";
+      
+      if (error instanceof Error && error.message.includes("database")) {
+        errorMessage = "Problem sa vezom ka bazi podataka. Molimo pokušajte ponovo za nekoliko trenutaka.";
+      }
+      
+      alert(errorMessage);
     } finally {
       setIsSubmitting(false);
     }

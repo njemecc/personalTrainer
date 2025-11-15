@@ -143,11 +143,11 @@ const AdminMainNav = ({ variant }: AdminNavbarProps) => {
         <li>
           <StyledNavLink
             as={variant === "mobile" ? "mobile" : ""}
-            href="/admin/plans"
+            href="/admin/planIshrane"
           >
             <FaClipboardList />
 
-            <span>Moji planovi</span>
+            <span>Upload plan ishrane</span>
           </StyledNavLink>
         </li>
         <li>

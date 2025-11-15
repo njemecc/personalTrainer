@@ -24,9 +24,9 @@ export const Hero = () => {
             <span className="inline-block text-deep-purple-accent-400"></span>
           </h2>
           <p className="pr-5 mb-5 text-base text-gold md:text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam
-            modi et velit consectetur. Unde perferendis illum reprehenderit
-            delectus, assumenda aliquam.
+            Da li ste spremni da preuzmete kontrolu nad svojim zdravljem,
+            oblikujete telo iz snova i povećate nivo energije? Ovde počinje vaše
+            putovanje ka boljoj verziji sebe!
           </p>
           <div className="flex items-center">
             <Link

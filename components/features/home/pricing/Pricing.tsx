@@ -16,7 +16,7 @@ export const Pricing = () => {
           plan koji vama najviše odgovara.
         </h2>
         <p className="text-base text-gray-700 md:text-lg">
-          Sve uplate se izvršavaju putem uplatnice.
+          Sve uplate se izvršavaju putem kartičnog plaćanja.
         </p>
       </div>
       <div className="grid   max-w-md gap-10 row-gap-5 lg:max-w-screen-lg sm:row-gap-10 lg:grid-cols-3 xl:max-w-screen-lg sm:mx-auto">

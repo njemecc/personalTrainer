@@ -16,19 +16,19 @@ const NavItems = () => {
     <ul className="md:flex-between flex w-full flex-col items-start gap-5 md:flex-row">
       {headerLinks
         .filter((link) => {
-          if (link.route === "/plan") {
-            return isSurveyCompleted; // Prikazuj "Moj plan" samo ako je survey završen
+          if (link.route === "/plan" || link.route === "/ishrana") {
+            return isSurveyCompleted; // Prikazuj "Moj plan" i "Ishrana" samo ako je survey završen
           }
-
+        
           if (link.route === "/survey") {
             return !isSurveyCompleted; // Prikazuj "Anketa" samo ako NIJE završena
           }
-
+        
           return true; // Sve ostale rute prikazuj normalno
         })
         .map((link) => {
           const isActive = pathName === link.route;
-
+        
           return (
             <li
               key={link.route}
@@ -39,8 +39,8 @@ const NavItems = () => {
               {link.route !== "/admin" ? (
                 <Link
                   href={
-                    link.route === "/plan"
-                      ? `/plan/${user?.publicMetadata?.userId}`
+                    (link.route === "/plan" || link.route === "/ishrana")
+                      ? `${link.route}/${user?.publicMetadata?.userId}`
                       : link.route
                   }
                 >

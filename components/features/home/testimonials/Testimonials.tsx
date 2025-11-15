@@ -21,33 +21,32 @@ const Testimonials = () => {
       <div className="text-justify tracking-tighter text-white w-full lg:w-2/4">
         <Reveal>
           <p className=" w-full p-regular-16 md:p-regular-22 mb-5">
-            Taj posao je u potpunosti na meni, a tvoje je samo da se opustiš i
-            uživaš na putu do postizanja svog željenog rezultata! Program je
-            napravljen tako da dobijaš plan treninga i ishrane za svaki mesec.
-            Ishranu i trening dobijaš u PDF formatu, s tim što vežbe pratiš
-            preko svog naloga na mojoj online aplikaciji u kojoj je sve detaljno
-            objašnjeno.
+            Sertifikovani personalni trener sa iskustvom u radu sa različitim
+            profilima vežbača. Fokus je na individualnom pristupu, prilagođenom
+            svakom klijentu prema njegovim ciljevima i mogućnostima. Do sada je
+            kroz treninge prošlo preko 100 ljudi koji su postigli vidljive i
+            dugoročne rezultate – bilo da je reč o jačanju tela, poboljšanju
+            kondicije ili gubitku viška kilograma.
           </p>
         </Reveal>{" "}
         <Reveal>
           <p className="p-regular-16 md:p-regular-22 mb-5">
-            Na tebi je kojim danima i u koje vreme ćeš trenirati, ali bih ti
-            najviše preporučio da se pridržavaš pisanog plana jer ćes tako
-            najbrže doći do željenog cilja. Takođe, tu sam za tebe u bilo koje
-            doba dana ili noći ako imaš neku nedoumicu slobodno pitaj, a ja ću
-            ti rado odgovoriti u najkraćem vremenskom roku.
+            Treninzi su zasnovani na funkcionalnim vežbama, kombinaciji snage i
+            mobilnosti, uz naglasak na postepeni napredak i održivost rezultata.
+            Cilj je pronaći balans između efikasnog vežbanja i svakodnevnog
+            života, bez ekstremnih metoda i kratkotrajnih rešenja.
           </p>
         </Reveal>
         <Reveal>
           <>
             <p className="p-regular-16 md:p-regular-22 mb-5">
-              Pitanja mi možeš postaviti u WhatsApp grupi polaznika ili direktno
-              meni u poruci.
+              Nije važno odakle počinjete – važno je gde želite da stignete.
+              Zajedno ćemo pomeriti granice i ostvariti vaše ciljeve!
             </p>
             <p className=" text-center mt-20 lg:mt-2 lg:text-left mb-2 p-bold-20 md:p-bold-20 text-primary ">
-              Očekujem te{" "}
+              Kontaktirajte me danas{" "}
               <span className="text-white">
-                da zajedno rušimo barijere i postižemo ciljeve!
+                i napravite prvi korak ka boljem sebi!
               </span>
             </p>
           </>
@@ -66,11 +65,14 @@ const Testimonials = () => {
         >
           <CarouselContent>
             {testimonials.map((testimonial) => (
-              <CarouselItem key={testimonial.name}>
-                <div className="p-1 w-[250px] md:w-[330px]">
+              <CarouselItem
+                key={testimonial.name}
+                className="relative h-[500px] md:h-[650px]"
+              >
+                <div className="p-1 w-[250px] md:w-[330px] h-full">
                   <Image
-                    width={700}
-                    height={800}
+                    fill
+                    className="object-contain w-full h-full rounded"
                     src={`/assets/testimonials/${testimonial.name}`}
                     alt={testimonial.name}
                   />

@@ -18,7 +18,7 @@ const Logo = () => {
       <Image
         width={150}
         height={150}
-        src="/assets/images/stoji-ukoso-goldbg.png"
+        src="/assets/images/djura.jpeg"
         alt="logo"
       />
     </StyledLogo>

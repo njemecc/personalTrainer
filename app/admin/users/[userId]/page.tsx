@@ -33,7 +33,7 @@ const page = async ({ params }: UserDetailsPageParams) => {
     );
   return (
     <>
-      <UserDetails {...user} />
+      <UserDetails _id={params.userId} {...user} />
       <h1 className="text-2xl text-center mt-20 font-semibold">
         <span className="text-gold">Klijentov </span> program
       </h1>
