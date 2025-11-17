@@ -50,8 +50,9 @@ function UserWorkout({
   });
 
   return (
-    <div className="md:h-full max-w-[90rem] [perspective:1000px] relative b flex flex-col  mx-auto mt-1 w-full   items-start justify-start my-40">
+    <div className="md:h-full max-w-[90rem] [perspective:1000px] flex flex-col mx-auto mt-1 w-full items-start justify-start">
       <Tabs tabs={tabs} />
+      <div className="clear-both h-10"></div>
     </div>
   );
 }

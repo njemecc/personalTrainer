@@ -71,7 +71,7 @@ const CreateUpdateExerciseModal = ({
         await createExercise({
           exercise: {
             name: values.exercise.name,
-            url: values.exercise.azureName,
+            url: values.exercise.url,
             reps: Number(values.exerciseReps),
             sets: Number(values.exerciseSets),
             description: values.exerciseDescription,
@@ -89,7 +89,7 @@ const CreateUpdateExerciseModal = ({
         await createExercise({
           exercise: {
             name: values.exercise.name,
-            url: values.exercise.azureName,
+            url: values.exercise.url,
             reps: Number(values.exerciseReps),
             sets: Number(values.exerciseSets),
             description: values.exerciseDescription,
@@ -152,9 +152,9 @@ const CreateUpdateExerciseModal = ({
                       {methods.formState.errors.exercise.name.message}
                     </p>
                   )}
-                  {methods.formState.errors.exercise?.azureName && (
+                  {methods.formState.errors.exercise?.url && (
                     <p className="text-sm text-red-500 mt-1">
-                      {methods.formState.errors.exercise.azureName.message}
+                      {methods.formState.errors.exercise.url.message}
                     </p>
                   )}
                 </FormItem>

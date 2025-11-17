@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Hero.module.css";
 import { useDynamicText } from "./useDynamicText";
+import Link from "next/link";
 
 export const Hero = () => {
   const { text } = useDynamicText();
@@ -23,17 +24,17 @@ export const Hero = () => {
             <span className="inline-block text-deep-purple-accent-400"></span>
           </h2>
           <p className="pr-5 mb-5 text-base text-gold md:text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam
-            modi et velit consectetur. Unde perferendis illum reprehenderit
-            delectus, assumenda aliquam.
+            Da li ste spremni da preuzmete kontrolu nad svojim zdravljem,
+            oblikujete telo iz snova i povećate nivo energije? Ovde počinje vaše
+            putovanje ka boljoj verziji sebe!
           </p>
           <div className="flex items-center">
-            <a
+            <Link
               href="/"
               className="p-regular-20 hover:bg-white font-semibold hover:text-black inline-flex items-center justify-center h-12 px-6 mr-6  tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
             >
               Započnimo
-            </a>
+            </Link>
           </div>
         </div>
       </div>

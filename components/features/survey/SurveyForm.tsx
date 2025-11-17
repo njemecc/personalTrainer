@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
-import { clerkClient } from "@clerk/nextjs";
 
 import { Textarea } from "@/components/ui/textarea";
 
@@ -48,14 +47,31 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-//redux
 
 import SurveyPagination from "./SurveyPagination";
-import { useUser } from "@clerk/nextjs";
+import { useUser} from "@clerk/nextjs";
 import { createSurvey } from "@/lib/actions/survey.actions";
+import { setSurveyCompletedOnClerk } from "@/lib/actions/user.actions";
+import { toast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const SurveyForm = () => {
-  const { user } = useUser();
+  const { user,isLoaded } = useUser();
+  const router = useRouter();
+
+
+  useEffect(() => {
+    if (isLoaded && user && !user.publicMetadata.userId) {
+      const interval = setInterval(async () => {
+        await user.reload(); 
+        if (user.publicMetadata.userId) {
+          clearInterval(interval);
+        }
+      }, 500);
+  
+      return () => clearInterval(interval);
+    } 
+  }, [isLoaded, user]);
 
   const [statusZaposlenja, setStatusZaposlenja] = useState<String>("");
   const [ranijeTrenirali, setRanijeTrenirali] = useState<String>("");
@@ -67,19 +83,36 @@ const SurveyForm = () => {
   const [page, setPage] = useState<number>(1);
 
   const onSubmit = async (values: z.infer<typeof surveyFormSchema>) => {
-    const survey = await createSurvey({
-      //@ts-ignore
-      userId: user.publicMetadata.userId,
-      ...values,
-    });
 
+    try {
+      if (!user?.publicMetadata?.userId) {
+        console.error("User ID iz baze nije dostupan!");
+        return;
+      }      
+
+
+      const survey = await createSurvey({
+        //@ts-ignore
+        userId: user.publicMetadata.userId,
+        ...values,
+      });
+
+
+      //@ts-ignore
+       await setSurveyCompletedOnClerk(user?.id);
+
+
+      toast({
+               variant: "default",
+               title: "Uspešno izmenjena vežba!",
+             });
+
+             router.push("/")
+      
+    } catch (error) {
+      console.error("Greška pri slanju forme:", error);
+    }
     
-    //@ts-ignore
-      await clerkClient.users.updateUserMetadata(user?.publicMetadata?.userId!, {
-            publicMetadata: {
-              isSurveyCompleted:"true"
-            },
-          });
   };
 
   return (

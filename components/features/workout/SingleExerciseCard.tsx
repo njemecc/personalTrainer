@@ -4,6 +4,8 @@ import DeleteWorkoutModal from "./DeleteWorkoutModal";
 import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
 import { Protect } from "@clerk/nextjs";
 import ExerciseDescriptionModal from "./ExerciseDescriptionModal";
+import ReactPlayer from "react-player/youtube"
+import VideoPlayerWithFrame from "@/components/ui/VideoPlayerWithFrame";
 
 type SingleExerciseCardParams = {
   name: string;
@@ -30,17 +32,17 @@ const SingleExerciseCard = ({
 }: SingleExerciseCardParams) => {
   return (
     <CardContainer className="inter-var">
-      <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
+      <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[40rem] h-auto rounded-xl p-6 border  ">
         <CardItem
           translateZ="50"
-          className="text-xl font-bold text-neutral-600 dark:text-white"
+          className="text-xxl font-bold text-neutral-600 dark:text-white"
         >
           {name}
         </CardItem>
         <CardItem
           as="p"
           translateZ="60"
-          className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300 flex justify-between"
+          className="text-neutral-500 text-lg max-w-sm mt-2 dark:text-neutral-300 flex justify-between"
         >
           {`${sets} serije ${reps} ponavljanja`}
         
@@ -51,7 +53,7 @@ const SingleExerciseCard = ({
           rotateZ={-10}
           className="w-full mt-4"
         >
-          <iframe
+          {/* <iframe
             id={`iframe-${_id}`}
             className="w-full  md:h-[15rem]"
             src={`${url}`}
@@ -59,7 +61,12 @@ const SingleExerciseCard = ({
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             sandbox="allow-scripts allow-same-origin"
-          ></iframe>
+          ></iframe> */}
+
+        <VideoPlayerWithFrame url={url}/>
+
+
+        
         </CardItem>
 
         {

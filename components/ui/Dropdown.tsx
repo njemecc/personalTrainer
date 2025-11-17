@@ -11,14 +11,14 @@ import {
 import { getAllExercises } from "@/lib/actions/exercise.actions";
 
 type DropdownProps = {
-  value?: { name: string; azureName: string };
-  onChangeHandler?: (value: { name: string; azureName: string }) => void;
+  value?: { name: string; url: string };
+  onChangeHandler?: (value: { name: string; url: string }) => void;
 };
 
 type ExerciseFromDb = {
   _id: string;
   name: string;
-  azureName: string;
+  url: string;
 };
 
 const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
@@ -38,7 +38,7 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
     if (value) {
       const selectedExercise = exercises.find(
         (exercise) =>
-          exercise.name === value.name && exercise.azureName === value.azureName
+          exercise.name === value.name && exercise.url === value.url
       );
       if (selectedExercise) {
         setSelectedValue(selectedExercise._id);
@@ -51,7 +51,7 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
     if (selectedExercise) {
       const newValue = {
         name: selectedExercise.name,
-        azureName: selectedExercise.azureName,
+        url: selectedExercise.url,
       };
       setSelectedValue(value);
       onChangeHandler?.(newValue);

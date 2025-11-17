@@ -6,7 +6,7 @@ export const createUpdateExerciseFormSchema = z.object({
     name: z.string({
       required_error: "Naziv vežbe je obavezno polje.",
     }),
-    azureName: z.string()
+    url: z.string()
 
   }),
   exerciseReps: z.string({

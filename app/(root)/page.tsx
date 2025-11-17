@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 //styles
 import styles from "./RootPage.module.css";
@@ -12,17 +12,13 @@ import { MacbookScroll } from "@/components/ui/macbookscrool";
 
 import { GlobeDemo } from "@/components/ui/demoglobe";
 export default function HomePage() {
-
- 
-
-
   return (
     <main>
       <section className="h-1/3">
         <Hero />
       </section>
       <section className="h-1/4">
-      <MacbookScroll/>
+        <MacbookScroll />
       </section>
       <section className={styles["about-testimonials-wrapper"]}>
         <About />
@@ -32,7 +28,7 @@ export default function HomePage() {
         <Pricing />
       </section>
       <section>
-        <GlobeDemo/>
+        <GlobeDemo />
       </section>
     </main>
   );
