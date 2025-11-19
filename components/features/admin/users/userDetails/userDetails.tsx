@@ -2,11 +2,23 @@
 
 import { UserSurveyDTO } from "@/types/survey";
 import React, { useState, useEffect } from "react";
-import { FaFilePdf, FaFileWord, FaDownload, FaPlus, FaTrash } from "react-icons/fa";
+import {
+  FaFilePdf,
+  FaFileWord,
+  FaDownload,
+  FaPlus,
+  FaTrash,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
 import DodajPlanIshrane from "../DodajPlanIshrane";
-import { getUserNutritionPlans, removeNutritionPlanFromUser } from "@/lib/actions/user.actions";
+import {
+  getUserNutritionPlans,
+  removeNutritionPlanFromUser,
+  setUserActiveStatus,
+} from "@/lib/actions/user.actions";
 import DeleteConfirmationDialog from "@/components/features/planIshrane/DeleteConfirmationDialog";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 interface UserNutritionPlan {
   planId: string;
@@ -37,7 +49,8 @@ const UserDetails = ({
   ocekivanja,
   ranijeTrenirali,
 }: UserSurveyDTO & { _id: string }) => {
-  
+  const { toast } = useToast();
+
   // Debug: Log user ID on component mount
   useEffect(() => {
     console.log("UserDetails component received _id:", _id);
@@ -46,13 +59,17 @@ const UserDetails = ({
   const [nutritionPlans, setNutritionPlans] = useState<UserNutritionPlan[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [planToDelete, setPlanToDelete] = useState<UserNutritionPlan | null>(null);
+  const [planToDelete, setPlanToDelete] = useState<UserNutritionPlan | null>(
+    null
+  );
   const [isDeleting, setIsDeleting] = useState(false);
+  const [activeStatus, setActiveStatus] = useState(isActive);
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
 
   // Fetch user's nutrition plans
   const fetchUserNutritionPlans = async () => {
     if (!_id) return;
-    
+
     setIsLoading(true);
     try {
       const plans = await getUserNutritionPlans(_id);
@@ -69,17 +86,22 @@ const UserDetails = ({
   }, [_id]);
 
   const getFileIcon = (fileName: string) => {
-    if (fileName.toLowerCase().endsWith('.pdf')) return <FaFilePdf className="text-red-500 text-xl" />;
-    if (fileName.toLowerCase().endsWith('.doc') || fileName.toLowerCase().endsWith('.docx')) return <FaFileWord className="text-blue-500 text-xl" />;
+    if (fileName.toLowerCase().endsWith(".pdf"))
+      return <FaFilePdf className="text-red-500 text-xl" />;
+    if (
+      fileName.toLowerCase().endsWith(".doc") ||
+      fileName.toLowerCase().endsWith(".docx")
+    )
+      return <FaFileWord className="text-blue-500 text-xl" />;
     return null;
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('sr-RS', { 
-      day: '2-digit', 
-      month: '2-digit', 
-      year: 'numeric',
+    return date.toLocaleDateString("sr-RS", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
     });
   };
 
@@ -90,17 +112,45 @@ const UserDetails = ({
 
   const handleRemovePlan = async () => {
     if (!planToDelete || !_id) return;
-    
+
     setIsDeleting(true);
     try {
       await removeNutritionPlanFromUser(_id, planToDelete.planId);
-      setNutritionPlans(prev => prev.filter(plan => plan.planId !== planToDelete.planId));
+      setNutritionPlans((prev) =>
+        prev.filter((plan) => plan.planId !== planToDelete.planId)
+      );
       setIsDeleteDialogOpen(false);
     } catch (error) {
       console.error("Greška pri uklanjanju plana ishrane:", error);
     } finally {
       setIsDeleting(false);
       setPlanToDelete(null);
+    }
+  };
+
+  const handleToggleActiveStatus = async () => {
+    if (!_id) return;
+
+    const nextStatus = !activeStatus;
+    setIsUpdatingStatus(true);
+    try {
+      await setUserActiveStatus(_id, nextStatus);
+      setActiveStatus(nextStatus);
+      toast({
+        title: "Status klijenta ažuriran",
+        description: nextStatus
+          ? "Klijent je sada aktivan."
+          : "Klijent je deaktiviran.",
+      });
+    } catch (error) {
+      console.error("Greška pri promeni statusa korisnika:", error);
+      toast({
+        title: "Neuspešna promena statusa",
+        description: "Pokušajte ponovo kasnije.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUpdatingStatus(false);
     }
   };
 
@@ -123,13 +173,27 @@ const UserDetails = ({
             {firstName} {lastName}
           </h3>
           <p className="text-center">{email}</p>
-          <p
-            className={`text-center text-[0.9rem] font-bold w-1/2 mx-auto mt-4 text-white py-[0.3rem] rounded ${
-              isActive ? "bg-gold" : "bg-red-600"
-            }`}
-          >
-            {isActive ? "Akitvan" : "Neaktivan"}
-          </p>
+          <div className="flex flex-col items-center gap-3 mt-4 w-full">
+            <p
+              className={`text-center text-[0.9rem] font-bold w-1/2 mx-auto text-white py-[0.3rem] rounded ${
+                activeStatus ? "bg-gold" : "bg-red-600"
+              }`}
+            >
+              {activeStatus ? "Aktivan" : "Neaktivan"}
+            </p>
+            <Button
+              className="w-full"
+              variant={activeStatus ? "outline" : "gold"}
+              onClick={handleToggleActiveStatus}
+              disabled={isUpdatingStatus}
+            >
+              {isUpdatingStatus
+                ? "Čuvanje..."
+                : activeStatus
+                ? "Deaktiviraj klijenta"
+                : "Aktiviraj klijenta"}
+            </Button>
+          </div>
         </div>
         <div className="md:w-2/3 p-4">
           <div className="border-b-2 pb-4">
@@ -190,15 +254,17 @@ const UserDetails = ({
               {ranijeTrenirali}
             </p>
           </div>
-          
+
           {/* Planovi ishrane section */}
           <div className="mt-8 border-t-2 pt-4">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-semibold">Planovi ishrane</h3>
-              <button 
+              <button
                 onClick={() => {
                   if (!_id) {
-                    alert("Greška: ID korisnika nije dostupan. Osvežite stranicu i pokušajte ponovo.");
+                    alert(
+                      "Greška: ID korisnika nije dostupan. Osvežite stranicu i pokušajte ponovo."
+                    );
                     return;
                   }
                   setIsPlanIshraneModalOpen(true);
@@ -209,7 +275,7 @@ const UserDetails = ({
                 <span>Dodaj plan</span>
               </button>
             </div>
-            
+
             <div className="mt-4">
               {isLoading ? (
                 <div className="flex justify-center items-center p-6">
@@ -222,7 +288,7 @@ const UserDetails = ({
               ) : (
                 <div className="space-y-3">
                   {nutritionPlans.map((plan) => (
-                    <motion.div 
+                    <motion.div
                       key={plan.planId}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -233,15 +299,17 @@ const UserDetails = ({
                           {getFileIcon(plan.name)}
                         </div>
                         <div>
-                          <p className="font-medium text-gray-800">{plan.name}</p>
+                          <p className="font-medium text-gray-800">
+                            {plan.name}
+                          </p>
                           <p className="text-xs text-gray-500">
                             Dodeljeno: {formatDate(plan.assignedAt)}
                           </p>
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        <a 
-                          href={plan.url} 
+                        <a
+                          href={plan.url}
                           target="_blank"
                           rel="noreferrer"
                           className="p-2 bg-amber-100 text-amber-700 rounded-full hover:bg-amber-200 transition-colors"
@@ -264,15 +332,15 @@ const UserDetails = ({
         </div>
       </div>
 
-        <DodajPlanIshrane 
-          isOpen={isPlanIshraneModalOpen}
-          onClose={() => setIsPlanIshraneModalOpen(false)}
-          userId={_id}
-          onPlanAdded={fetchUserNutritionPlans}
-        />
-      
+      <DodajPlanIshrane
+        isOpen={isPlanIshraneModalOpen}
+        onClose={() => setIsPlanIshraneModalOpen(false)}
+        userId={_id}
+        onPlanAdded={fetchUserNutritionPlans}
+      />
+
       {/* Dialog za potvrdu brisanja */}
-      <DeleteConfirmationDialog 
+      <DeleteConfirmationDialog
         isOpen={isDeleteDialogOpen}
         isDeleting={isDeleting}
         title="Uklanjanje plana ishrane"

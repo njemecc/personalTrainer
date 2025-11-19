@@ -58,6 +58,32 @@ export const updateUser = async (id: string, user: UpdateUserParams) => {
   }
 };
 
+export const setUserActiveStatus = async (
+  userId: string,
+  isActive: boolean
+) => {
+  try {
+    await connectToDatabase();
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { is_active: isActive },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      throw new Error("Korisnik nije pronađen");
+    }
+
+    revalidatePath("/admin/users");
+    revalidatePath(`/admin/users/${userId}`);
+
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 export async function deleteUser(clerkId: string) {
   try {
     await connectToDatabase();
@@ -84,49 +110,52 @@ export const setSurveyCompletedOnClerk = async (userId: string) => {
   try {
     await clerkClient.users.updateUserMetadata(userId, {
       privateMetadata: {
-        isSurveyCompleted: "true"
-      }
-    })
+        isSurveyCompleted: "true",
+      },
+    });
   } catch (error) {
-    handleError(error)
+    handleError(error);
   }
-}
+};
 
 // NUTRITION PLAN MANAGEMENT FUNCTIONS
 
 // Add a nutrition plan to a user
-export const assignNutritionPlanToUser = async (userId: string, planId: string) => {
+export const assignNutritionPlanToUser = async (
+  userId: string,
+  planId: string
+) => {
   try {
     // Ensure database connection is established
     const conn = await connectToDatabase();
     if (!conn) throw new Error("Failed to connect to database");
-    
+
     // Find the nutrition plan
     const plan = await NutritionPlan.findById(planId);
     if (!plan) {
       throw new Error("Plan ishrane nije pronađen");
     }
-    
+
     // Add plan to user's nutrition plans
     const user = await User.findByIdAndUpdate(
       userId,
-      { 
-        $push: { 
+      {
+        $push: {
           nutritionPlans: {
             planId: plan._id,
             name: plan.name,
             url: plan.url,
-            assignedAt: new Date()
-          } 
-        } 
+            assignedAt: new Date(),
+          },
+        },
       },
       { new: true }
     );
-    
+
     if (!user) {
       throw new Error("Korisnik nije pronađen");
     }
-    
+
     // Use correct path format for revalidation
     revalidatePath("/admin/users");
     return JSON.parse(JSON.stringify(user));
@@ -138,20 +167,23 @@ export const assignNutritionPlanToUser = async (userId: string, planId: string) 
 };
 
 // Remove a nutrition plan from a user
-export const removeNutritionPlanFromUser = async (userId: string, planId: string) => {
+export const removeNutritionPlanFromUser = async (
+  userId: string,
+  planId: string
+) => {
   try {
     await connectToDatabase();
-    
+
     const user = await User.findByIdAndUpdate(
       userId,
       { $pull: { nutritionPlans: { planId } } },
       { new: true }
     );
-    
+
     if (!user) {
       throw new Error("Korisnik nije pronađen");
     }
-    
+
     revalidatePath(`/admin/users/${userId}`);
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
@@ -164,12 +196,12 @@ export const removeNutritionPlanFromUser = async (userId: string, planId: string
 export const getUserNutritionPlans = async (userId: string) => {
   try {
     await connectToDatabase();
-    
+
     const user = await User.findById(userId);
     if (!user) {
       throw new Error("Korisnik nije pronađen");
     }
-    
+
     return JSON.parse(JSON.stringify(user.nutritionPlans || []));
   } catch (error) {
     handleError(error);
