@@ -343,7 +343,7 @@ const DodajPlanIshrane = ({ isOpen, onClose, userId, onPlanAdded }: DodajPlanIsh
                       </svg>
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-300">
-                      Nakon uploada fajla, plan će biti dostupan u sekciji "Postojeći Planovi"
+                      Nakon uploada fajla, plan će biti dostupan u sekciji &quot;Postojeći Planovi&quot;
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
