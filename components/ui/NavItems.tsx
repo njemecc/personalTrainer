@@ -5,6 +5,7 @@ import { Protect, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { Dumbbell, Utensils, Home, ClipboardList, UserCog } from "lucide-react";
 
 const NavItems = () => {
   const pathName = usePathname();
@@ -27,7 +28,11 @@ const NavItems = () => {
           return true; // Sve ostale rute prikazuj normalno
         })
         .map((link) => {
-          const isActive = pathName === link.route;
+          // Proveri da li je trenutna ruta aktivna (uključujući userId parametar)
+          const isActive =
+            pathName === link.route ||
+            (link.route === "/plan" && pathName?.startsWith("/plan/")) ||
+            (link.route === "/ishrana" && pathName?.startsWith("/ishrana/"));
 
           return (
             <li key={link.route} className="w-full">
@@ -38,12 +43,20 @@ const NavItems = () => {
                       ? `${link.route}/${user?.publicMetadata?.userId}`
                       : link.route
                   }
-                  className={`flex items-center w-full px-4 py-3 rounded-lg transition-all duration-300 whitespace-nowrap text-base font-medium ${
+                  className={`flex items-center gap-2 w-full px-4 py-3 rounded-lg transition-all duration-300 whitespace-nowrap text-base font-medium ${
                     isActive
                       ? "bg-gold text-white shadow-md"
                       : "text-gray-700 hover:bg-gray-100 hover:text-gold"
                   }`}
                 >
+                  {link.route === "/" && <Home className="h-4 w-4" />}
+                  {link.route === "/plan" && <Dumbbell className="h-4 w-4" />}
+                  {link.route === "/ishrana" && (
+                    <Utensils className="h-4 w-4" />
+                  )}
+                  {link.route === "/survey" && (
+                    <ClipboardList className="h-4 w-4" />
+                  )}
                   {link.label}
                 </Link>
               ) : (

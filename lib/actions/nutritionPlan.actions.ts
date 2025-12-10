@@ -7,7 +7,6 @@ import { revalidatePath } from "next/cache";
 import { UTApi } from "uploadthing/server";
 import User from "../database/mongodb/models/user.model";
 
-
 // Inicijalizacija UT API-ja
 const utapi = new UTApi();
 
@@ -71,34 +70,39 @@ export const updateNutritionPlan = async ({
 export const deleteNutritionPlan = async (id: string) => {
   try {
     await connectToDatabase();
-    
+
     // Pronađi plan pre brisanja da bismo imali URL
     const planToDelete = await NutritionPlan.findById(id);
-    
+
     if (!planToDelete) {
       throw new Error("Plan ishrane nije pronađen");
     }
-    
+
     // Izbrišemo plan iz baze
     const deleted = await NutritionPlan.findByIdAndDelete(id);
-    
+
     // Pokušamo da izbrišemo fajl iz UploadThing-a
     try {
       // Parsiramo URL za izvlačenje fileKey-a
       const fileUrl = planToDelete.url;
-      
+
       // Pokušavamo da izvučemo ključ iz URL-a pomoću regex-a
       // UploadThing URL je obično u formatu: https://utfs.io/f/{fileKey}
       const regex = /\/f\/([^\/]+)($|\?)/;
       const match = fileUrl.match(regex);
       const fileKey = match ? match[1] : null;
-      
+
       if (fileKey) {
         // Brišemo fajl iz UploadThing skladišta
         await utapi.deleteFiles(fileKey);
-        console.log(`Fajl sa ključem ${fileKey} uspešno izbrisan iz UploadThing-a`);
+        console.log(
+          `Fajl sa ključem ${fileKey} uspešno izbrisan iz UploadThing-a`
+        );
       } else {
-        console.warn("Nije moguće ekstraktovati ključ fajla iz URL-a:", fileUrl);
+        console.warn(
+          "Nije moguće ekstraktovati ključ fajla iz URL-a:",
+          fileUrl
+        );
       }
     } catch (deleteError) {
       console.error("Greška pri brisanju fajla iz UploadThing-a:", deleteError);
@@ -117,11 +121,11 @@ export const getNutritionPlanById = async (id: string) => {
   try {
     await connectToDatabase();
     const nutritionPlan = await NutritionPlan.findById(id);
-    
+
     if (!nutritionPlan) {
       throw new Error("Plan ishrane nije pronađen");
     }
-    
+
     return JSON.parse(JSON.stringify(nutritionPlan));
   } catch (error) {
     handleError(error);
@@ -146,10 +150,41 @@ export const getNutritionPlanByUserId = async (userId: string) => {
 
     console.log("Found nutrition plan:", latestPlan.name);
     return JSON.parse(JSON.stringify(latestPlan));
-
   } catch (error) {
     console.error("Error while fetching nutrition plan:", error);
     handleError(error);
     throw error;
   }
-}
+};
+
+export const getAllNutritionPlansByUserId = async (userId: string) => {
+  try {
+    console.log("Searching for all nutrition plans for user:", userId);
+    await connectToDatabase();
+
+    const user = await User.findOne({ _id: userId });
+
+    if (!user || !user.nutritionPlans || user.nutritionPlans.length === 0) {
+      console.log("No nutrition plans found in database");
+      return [];
+    }
+
+    // Vrati sve planove sortirane po datumu (najnoviji prvi)
+    const allPlans = user.nutritionPlans
+      .map((plan: any) => ({
+        ...plan.toObject(),
+        assignedAt: plan.assignedAt || new Date(),
+      }))
+      .sort(
+        (a: any, b: any) =>
+          new Date(b.assignedAt).getTime() - new Date(a.assignedAt).getTime()
+      );
+
+    console.log(`Found ${allPlans.length} nutrition plan(s)`);
+    return JSON.parse(JSON.stringify(allPlans));
+  } catch (error) {
+    console.error("Error while fetching all nutrition plans:", error);
+    handleError(error);
+    throw error;
+  }
+};
