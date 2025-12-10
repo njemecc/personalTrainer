@@ -4,7 +4,7 @@ import DeleteWorkoutModal from "./DeleteWorkoutModal";
 import CreateUpdateExerciseModal from "./CreateUpdateExerciseModal";
 import { Protect } from "@clerk/nextjs";
 import ExerciseDescriptionModal from "./ExerciseDescriptionModal";
-import ReactPlayer from "react-player/youtube"
+import ReactPlayer from "react-player/youtube";
 import VideoPlayerWithFrame from "@/components/ui/VideoPlayerWithFrame";
 
 type SingleExerciseCardParams = {
@@ -45,7 +45,6 @@ const SingleExerciseCard = ({
           className="text-neutral-500 text-lg max-w-sm mt-2 dark:text-neutral-300 flex justify-between"
         >
           {`${sets} serije ${reps} ponavljanja`}
-        
         </CardItem>
         <CardItem
           translateZ="100"
@@ -63,10 +62,7 @@ const SingleExerciseCard = ({
             sandbox="allow-scripts allow-same-origin"
           ></iframe> */}
 
-        <VideoPlayerWithFrame url={url}/>
-
-
-        
+          <VideoPlayerWithFrame url={url} />
         </CardItem>
 
         {

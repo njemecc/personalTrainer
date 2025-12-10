@@ -31,14 +31,59 @@ export const getUserById = async (userId: string) => {
   }
 };
 
-export const createUser = async (user: CreateUserParams) => {
+export const getUserByClerkId = async (clerkId: string) => {
   try {
     await connectToDatabase();
+    const user = await User.findOne({ clerkId: clerkId });
 
-    const newUser = await User.create(user);
-
-    return JSON.parse(JSON.stringify(newUser));
+    return JSON.parse(JSON.stringify(user));
   } catch (error) {
+    handleError(error);
+  }
+};
+
+export const createUser = async (user: CreateUserParams) => {
+  try {
+    console.log("🔄 Connecting to database...");
+    await connectToDatabase();
+    console.log("✅ Database connected successfully");
+
+    console.log("🔄 Attempting to create user with data:", user);
+    const newUser = await User.create(user);
+    console.log("✅ User created successfully with ID:", newUser._id);
+    console.log("📊 Full user object:", newUser);
+
+    const result = JSON.parse(JSON.stringify(newUser));
+    console.log("📤 Returning user data:", result);
+    return result;
+  } catch (error) {
+    console.error("❌ Database error creating user:", error);
+
+    // Specifično rukovanje MongoDB greškama
+    if (error instanceof Error) {
+      console.log("🔍 Error details:", {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+      });
+
+      if (error.message.includes("E11000") && error.message.includes("email")) {
+        throw new Error("User with this email already exists");
+      }
+      if (
+        error.message.includes("E11000") &&
+        error.message.includes("username")
+      ) {
+        throw new Error("Username already taken");
+      }
+      if (
+        error.message.includes("E11000") &&
+        error.message.includes("clerkId")
+      ) {
+        throw new Error("User with this Clerk ID already exists");
+      }
+    }
+
     handleError(error);
   }
 };
@@ -109,8 +154,8 @@ export async function deleteUser(clerkId: string) {
 export const setSurveyCompletedOnClerk = async (userId: string) => {
   try {
     await clerkClient.users.updateUserMetadata(userId, {
-      privateMetadata: {
-        isSurveyCompleted: "true",
+      publicMetadata: {
+        isSurveyCompleted: true,
       },
     });
   } catch (error) {

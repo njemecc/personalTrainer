@@ -8,24 +8,38 @@ type PricingCardProps = {
 
 const PricingCard = ({ duration, price }: PricingCardProps) => {
   return (
-    <div className=" w-full flex flex-col justify-between p-8 transition-shadow duration-300 bg-white border-2  rounded shadow-sm sm:items-center hover:shadow">
+    <div className="group w-full flex flex-col justify-between p-8 transition-all duration-300 bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-xl shadow-lg sm:items-center hover:shadow-2xl hover:scale-105 hover:border-gold">
       <div className="text-center">
-        <div className="text-lg font-semibold">{duration}</div>
-        <div className="flex items-center justify-center mt-2">
-          <div className="mr-1 text-5xl font-bold">{price}</div>
+        <div className="text-xl lg:text-2xl font-bold text-gray-900 mb-4">
+          {duration}
         </div>
-        <div className="mt-2 space-y-3">
+        <div className="flex items-center justify-center mt-4 mb-6">
+          <div className="text-5xl lg:text-6xl font-bold text-gold">
+            {price}
+          </div>
+          <span className="text-gray-600 text-lg ml-2">RSD</span>
+        </div>
+        <div className="mt-6 space-y-4">
           {pricingCardContent.map((content, i) => (
-            <div key={i} className="text-gray-700">{`✔ ${content.text}`}</div>
+            <div
+              key={i}
+              className="flex items-start gap-3 text-gray-700 text-left"
+            >
+              <span className="text-gold text-xl flex-shrink-0 mt-0.5">✓</span>
+              <span className="text-base lg:text-lg">{content.text}</span>
+            </div>
           ))}
         </div>
       </div>
-      <div>
+      <div className="mt-8">
         <Link
           href="/survey"
-          className=" md:w-[16rem] inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gold rounded shadow-md hover:opacity-90 focus:shadow-outline focus:outline-none"
+          className="group/btn md:w-[16rem] inline-flex items-center justify-center w-full h-14 px-6 font-semibold tracking-wide text-white transition-all duration-300 bg-gold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
         >
-          Započni
+          <span>Započni</span>
+          <span className="ml-2 transition-transform duration-300 group-hover/btn:translate-x-1">
+            →
+          </span>
         </Link>
       </div>
     </div>

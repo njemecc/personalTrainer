@@ -1,10 +1,8 @@
-"use client"
+"use client";
 import NavBar from "@/components/ui/NavBar";
 import { Footer } from "@/components/ui/Footer";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
-
-
   return (
     <div className="w-full">
       <NavBar />

@@ -13,21 +13,21 @@ import { MacbookScroll } from "@/components/ui/macbookscrool";
 import { GlobeDemo } from "@/components/ui/demoglobe";
 export default function HomePage() {
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <section className="h-1/3">
         <Hero />
       </section>
-      <section className="h-1/4">
+      <section className="h-1/4 py-8 lg:py-16">
         <MacbookScroll />
       </section>
       <section className={styles["about-testimonials-wrapper"]}>
         <About />
         <Testimonials />
       </section>
-      <section>
+      <section className="py-8 lg:py-16">
         <Pricing />
       </section>
-      <section>
+      <section className="py-8 lg:py-16">
         <GlobeDemo />
       </section>
     </main>

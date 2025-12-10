@@ -5,9 +5,20 @@ const MONGODB_URI = process.env.MONGODB_URI;
 let cashed = (global as any).mongoose || { conn: null, promise: null };
 
 export const connectToDatabase = async () => {
-  if (cashed.conn) return cashed.conn;
+  console.log("🔄 Checking database connection...");
+  
+  if (cashed.conn) {
+    console.log("✅ Using cached database connection");
+    return cashed.conn;
+  }
 
-  if (!MONGODB_URI) throw new Error("MONGODB_URI is missing");
+  if (!MONGODB_URI) {
+    console.error("❌ MONGODB_URI is missing from environment variables");
+    throw new Error("MONGODB_URI is missing");
+  }
+  
+  console.log("🔄 Creating new database connection...");
+  console.log("📍 Database name: personalTrainer");
 
   cashed.promise =
     cashed.promise ||
@@ -17,6 +28,7 @@ export const connectToDatabase = async () => {
     });
 
   cashed.conn = await cashed.promise;
+  console.log("✅ Database connected successfully");
 
   return cashed.conn;
 };
