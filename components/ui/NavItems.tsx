@@ -5,7 +5,14 @@ import { Protect, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { Dumbbell, Utensils, Home, ClipboardList, UserCog } from "lucide-react";
+import {
+  Dumbbell,
+  Utensils,
+  Home,
+  ClipboardList,
+  UserCog,
+  TrendingUp,
+} from "lucide-react";
 
 const NavItems = () => {
   const pathName = usePathname();
@@ -17,8 +24,12 @@ const NavItems = () => {
     <ul className="md:flex-between flex w-full flex-col items-start gap-2 md:gap-5 md:flex-row">
       {headerLinks
         .filter((link) => {
-          if (link.route === "/plan" || link.route === "/ishrana") {
-            return isSurveyCompleted; // Prikazuj "Moj plan" i "Ishrana" samo ako je survey završen
+          if (
+            link.route === "/plan" ||
+            link.route === "/ishrana" ||
+            link.route === "/progress"
+          ) {
+            return isSurveyCompleted; // Prikazuj "Moj plan", "Ishrana" i "Napredak" samo ako je survey završen
           }
 
           if (link.route === "/survey") {
@@ -32,14 +43,17 @@ const NavItems = () => {
           const isActive =
             pathName === link.route ||
             (link.route === "/plan" && pathName?.startsWith("/plan/")) ||
-            (link.route === "/ishrana" && pathName?.startsWith("/ishrana/"));
+            (link.route === "/ishrana" && pathName?.startsWith("/ishrana/")) ||
+            (link.route === "/progress" && pathName?.startsWith("/progress/"));
 
           return (
             <li key={link.route} className="w-full">
               {link.route !== "/admin" ? (
                 <Link
                   href={
-                    link.route === "/plan" || link.route === "/ishrana"
+                    link.route === "/plan" ||
+                    link.route === "/ishrana" ||
+                    link.route === "/progress"
                       ? `${link.route}/${user?.publicMetadata?.userId}`
                       : link.route
                   }
@@ -53,6 +67,9 @@ const NavItems = () => {
                   {link.route === "/plan" && <Dumbbell className="h-4 w-4" />}
                   {link.route === "/ishrana" && (
                     <Utensils className="h-4 w-4" />
+                  )}
+                  {link.route === "/progress" && (
+                    <TrendingUp className="h-4 w-4" />
                   )}
                   {link.route === "/survey" && (
                     <ClipboardList className="h-4 w-4" />

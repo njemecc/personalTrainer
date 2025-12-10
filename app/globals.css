@@ -89,7 +89,8 @@
 }
 
 .filter-grey {
-  filter: brightness(0) saturate(100%) invert(47%) sepia(0%) saturate(217%) hue-rotate(32deg) brightness(98%) contrast(92%);
+  filter: brightness(0) saturate(100%) invert(47%) sepia(0%) saturate(217%)
+    hue-rotate(32deg) brightness(98%) contrast(92%);
 }
 
 /* ========================================== TAILWIND STYLES */
@@ -291,4 +292,62 @@
 
 .react-datepicker__time-list-item--selected {
   background-color: #ffd200 !important;
+}
+
+/* Progress bar animacija za loader */
+@keyframes progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ========================================== UPLOADTHING STYLES */
+/* Promena teksta "Choose File(s)" na srpski i crna boja za progress upload */
+.progress-upload-button [data-ut-element="button"] {
+  position: relative;
+  color: transparent !important;
+}
+
+.progress-upload-button [data-ut-element="button"]:hover {
+  color: transparent !important;
+}
+
+/* Sakrivanje originalnog teksta - svi child elementi */
+.progress-upload-button [data-ut-element="button"] > * {
+  opacity: 0 !important;
+  color: transparent !important;
+  visibility: hidden !important;
+}
+
+/* Sakrivanje svih span elemenata unutar dugmeta */
+.progress-upload-button [data-ut-element="button"] span {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Dodavanje srpskog teksta preko ::before pseudo-elementa */
+.progress-upload-button [data-ut-element="button"]::before {
+  content: "Izaberi Slike" !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1 !important;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 100;
+  display: block !important;
+}
+
+.progress-upload-button [data-ut-element="button"]:hover::before {
+  color: #d4af37 !important;
 }
