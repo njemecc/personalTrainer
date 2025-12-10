@@ -6,13 +6,18 @@ import { clerkClient } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
+  console.log("🔥 Webhook received!");
+  
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
   if (!WEBHOOK_SECRET) {
+    console.error("❌ WEBHOOK_SECRET missing!");
     throw new Error(
       "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
     );
   }
+  
+  console.log("✅ WEBHOOK_SECRET found");
 
   // Get the headers
   const headerPayload = headers();
@@ -51,10 +56,13 @@ export async function POST(req: Request) {
   }
 
   // Get the ID and type
-
+  console.log("✅ Webhook verified successfully");
+  
   const eventType = evt.type;
+  console.log("📋 Event type:", eventType);
 
   if (eventType === "user.created") {
+    console.log("👤 Processing user.created event");
     const {
       id,
       email_addresses,
@@ -65,27 +73,53 @@ export async function POST(req: Request) {
       created_at,
     } = evt.data;
 
+    console.log("Creating user with data:", {
+      clerkId: id,
+      email: email_addresses[0].email_address,
+      username: username,
+      first_name: first_name,
+      last_name: last_name,
+    });
+
     const user = {
       clerkId: id,
       email: email_addresses[0].email_address,
       photo: image_url,
-      username: username!,
+      username: username || `user_${id.slice(-8)}`, // Fallback ako je username null
       created_at: new Date(created_at),
       first_name: first_name,
       last_name: last_name,
     };
 
-    const newUser = await createUser(user);
+    try {
+      console.log("🔄 Calling createUser function...");
+      const newUser = await createUser(user);
+      console.log("📊 CreateUser result:", newUser ? "SUCCESS" : "FAILED");
 
-    if (newUser) {
-      await clerkClient.users.updateUserMetadata(id, {
-        publicMetadata: {
-          userId: newUser._id,
-        },
-      });
+      if (newUser) {
+        console.log("🔄 Updating Clerk metadata...");
+        await clerkClient.users.updateUserMetadata(id, {
+          publicMetadata: {
+            userId: newUser._id,
+          },
+        });
+        console.log("✅ User successfully created with ID:", newUser._id);
+        
+        return NextResponse.json({ message: "OK", user: newUser });
+      } else {
+        console.error("❌ CreateUser returned null/undefined");
+        return NextResponse.json(
+          { message: "Error: createUser returned null" },
+          { status: 500 }
+        );
+      }
+    } catch (error) {
+      console.error("❌ Error creating user in database:", error);
+      return NextResponse.json(
+        { message: "Error creating user", error: error instanceof Error ? error.message : "Unknown error" },
+        { status: 500 }
+      );
     }
-
-    return NextResponse.json({ message: "OK", user: newUser });
   }
 
   if (eventType === "user.updated") {

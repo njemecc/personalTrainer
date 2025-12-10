@@ -8,22 +8,54 @@
 
 .hero-wrapper {
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url(/assets/images/stoji-ukoso-Copy.jpg);
+    url(/assets/images/ukoso.jpg);
 
   background-size: cover;
-
-  background-position: center;
+  background-position: center 25%;
   background-repeat: no-repeat;
   height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
 }
 
 @media (min-width: 760px) {
   .hero-wrapper {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-      url(/assets/images/stoji-ukoso.jpg);
+      url(/assets/images/ukoso.jpg);
 
     background-size: cover;
-    background-position: center;
+    background-position: center 25%;
     background-repeat: no-repeat;
   }
 }

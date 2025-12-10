@@ -112,12 +112,18 @@ const SurveyForm = () => {
       //@ts-ignore
       await setSurveyCompletedOnClerk(user?.id);
 
+      // Osveži user objekat da bi se metadata ažurirala
+      if (user) {
+        await user.reload();
+      }
+
       toast({
         variant: "default",
         title: "Uspešno izmenjena vežba!",
       });
 
       router.push("/");
+      router.refresh();
     } catch (error) {
       console.error("Greška pri slanju forme:", error);
     }

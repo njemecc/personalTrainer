@@ -13,7 +13,7 @@ export const headerLinks = [
   },
   {
     label: "Ishrana",
-     route:"/ishrana"
+    route: "/ishrana",
   },
   {
     label: "Anketa",
@@ -23,13 +23,22 @@ export const headerLinks = [
 
 export const testimonials = [
   {
-    name: "rezultat1.jpeg",
+    name: "rezultat1.png",
   },
   {
-    name: "rezultat3.jpeg",
+    name: "rezultat2.png",
   },
   {
-    name: "rezultat4.JPG",
+    name: "rezultat3.jpg",
+  },
+  {
+    name: "rezultat4.jpg",
+  },
+  {
+    name: "rezultat5.jpg",
+  },
+  {
+    name: "rezultat6.jpg",
   },
 ];
 

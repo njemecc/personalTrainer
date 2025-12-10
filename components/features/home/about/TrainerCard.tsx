@@ -6,7 +6,7 @@ import { SlSocialInstagram } from "react-icons/sl";
 const TrainerCard = () => {
   return (
     <div className={`${styles.item} text-center duration-1000`}>
-      <img src="/assets/images/djura.jpeg" />
+      <img src="/assets/images/uspravno.jpg" />
       <div className={styles.inner}>
         <div className={`${styles.info} bg-primary`}>
           <h4>Djura Blažu</h4>

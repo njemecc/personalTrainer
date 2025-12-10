@@ -29,20 +29,19 @@ function UserWorkout({
             exercises={day.exercises}
           />
           <Protect role="org:king">
-          <div className="flex justify-between items-center">
-  <CreateUpdateExerciseModal
-    userId={userId}
-    dayId={day._id}
-    variant="create"
-  />
+            <div className="flex justify-between items-center">
+              <CreateUpdateExerciseModal
+                userId={userId}
+                dayId={day._id}
+                variant="create"
+              />
 
-  <DeleteEntireWorkoutModal
-    userId={userId}
-    id={day._id}
-    name={day.dayName}
-  />
-</div>
-
+              <DeleteEntireWorkoutModal
+                userId={userId}
+                id={day._id}
+                name={day.dayName}
+              />
+            </div>
           </Protect>
         </div>
       ),

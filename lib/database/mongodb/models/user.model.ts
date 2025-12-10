@@ -25,7 +25,11 @@ const UserSchema = new Schema({
   clerkId: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   photo: { type: String },
-  username: { type: String, unique: true },
+  username: { 
+    type: String, 
+    unique: true,
+    sparse: true // Omogućava null vrednosti da ne krše unique constraint
+  },
   created_at: { type: Date },
   first_name: { type: String },
   last_name: { type: String },

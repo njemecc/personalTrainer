@@ -4,7 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
-  title: "Marko Gligorijevic",
+  title: "Djura Blažu",
   description: "Personalni Trener",
 };
 
