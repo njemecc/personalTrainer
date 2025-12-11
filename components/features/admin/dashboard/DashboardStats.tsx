@@ -15,7 +15,15 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Users, UserCheck, UserX, ClipboardList, Dumbbell, Utensils, TrendingUp } from "lucide-react";
+import {
+  Users,
+  UserCheck,
+  UserX,
+  ClipboardList,
+  Dumbbell,
+  Utensils,
+  TrendingUp,
+} from "lucide-react";
 
 interface DashboardStatsProps {
   statistics: {
@@ -52,7 +60,8 @@ const COLORS = [
 ];
 
 export default function DashboardStats({ statistics }: DashboardStatsProps) {
-  const { overview, registrationsByMonth, nutritionPlansByMonth, surveyStats } = statistics;
+  const { overview, registrationsByMonth, nutritionPlansByMonth, surveyStats } =
+    statistics;
 
   // Priprema podataka za pie chart - aktivni vs neaktivni
   const activeStatusData = [
@@ -136,15 +145,19 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
             >
               {/* Gradient overlay on hover */}
               <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
+
               <div className="relative flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-gray-400 text-sm mb-2 font-medium">{stat.title}</p>
+                  <p className="text-gray-400 text-sm mb-2 font-medium">
+                    {stat.title}
+                  </p>
                   <p className="text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                     {stat.value}
                   </p>
                 </div>
-                <div className={`${stat.bgColor} p-4 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <div
+                  className={`${stat.bgColor} p-4 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                >
                   <Icon className={`${stat.color} w-7 h-7`} />
                 </div>
               </div>
@@ -162,15 +175,23 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
           </h3>
           <div className="space-y-4">
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg backdrop-blur-sm">
-              <span className="text-gray-300 font-medium">Prosečna visina:</span>
+              <span className="text-gray-300 font-medium">
+                Prosečna visina:
+              </span>
               <span className="text-white font-bold text-lg bg-gradient-to-r from-purple-300 to-purple-100 bg-clip-text text-transparent">
-                {overview.avgVisina ? `${overview.avgVisina.toFixed(1)} cm` : "N/A"}
+                {overview.avgVisina
+                  ? `${overview.avgVisina.toFixed(1)} cm`
+                  : "N/A"}
               </span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg backdrop-blur-sm">
-              <span className="text-gray-300 font-medium">Prosečna težina:</span>
+              <span className="text-gray-300 font-medium">
+                Prosečna težina:
+              </span>
               <span className="text-white font-bold text-lg bg-gradient-to-r from-purple-300 to-purple-100 bg-clip-text text-transparent">
-                {overview.avgTezina ? `${overview.avgTezina.toFixed(1)} kg` : "N/A"}
+                {overview.avgTezina
+                  ? `${overview.avgTezina.toFixed(1)} kg`
+                  : "N/A"}
               </span>
             </div>
           </div>
@@ -183,13 +204,17 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
           </h3>
           <div className="space-y-4">
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg backdrop-blur-sm">
-              <span className="text-gray-300 font-medium">Klijenti sa planom ishrane:</span>
+              <span className="text-gray-300 font-medium">
+                Klijenti sa planom ishrane:
+              </span>
               <span className="text-white font-bold text-lg bg-gradient-to-r from-amber-300 to-amber-100 bg-clip-text text-transparent">
                 {overview.usersWithNutritionPlans} / {overview.totalUsers}
               </span>
             </div>
             <div className="flex justify-between items-center p-3 bg-white/5 rounded-lg backdrop-blur-sm">
-              <span className="text-gray-300 font-medium">Klijenti sa trening planom:</span>
+              <span className="text-gray-300 font-medium">
+                Klijenti sa trening planom:
+              </span>
               <span className="text-white font-bold text-lg bg-gradient-to-r from-amber-300 to-amber-100 bg-clip-text text-transparent">
                 {overview.totalWorkoutPlans} / {overview.totalUsers}
               </span>
@@ -208,16 +233,17 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
         </h3>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={registrationsByMonth}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#4B5563" opacity={0.3} />
-            <XAxis 
-              dataKey="month" 
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#4B5563"
+              opacity={0.3}
+            />
+            <XAxis
+              dataKey="month"
               stroke="#9CA3AF"
               tick={{ fill: "#9CA3AF", fontSize: 12 }}
             />
-            <YAxis 
-              stroke="#9CA3AF"
-              tick={{ fill: "#9CA3AF", fontSize: 12 }}
-            />
+            <YAxis stroke="#9CA3AF" tick={{ fill: "#9CA3AF", fontSize: 12 }} />
             <Tooltip
               contentStyle={{
                 backgroundColor: "#1F2937",
@@ -227,9 +253,7 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
               }}
               labelStyle={{ color: "#D4AF37", fontWeight: "bold" }}
             />
-            <Legend 
-              wrapperStyle={{ color: "#9CA3AF" }}
-            />
+            <Legend wrapperStyle={{ color: "#9CA3AF" }} />
             <Line
               type="monotone"
               dataKey="count"
@@ -253,16 +277,17 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
         </h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={nutritionPlansByMonth}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#4B5563" opacity={0.3} />
-            <XAxis 
-              dataKey="month" 
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#4B5563"
+              opacity={0.3}
+            />
+            <XAxis
+              dataKey="month"
               stroke="#9CA3AF"
               tick={{ fill: "#9CA3AF", fontSize: 12 }}
             />
-            <YAxis 
-              stroke="#9CA3AF"
-              tick={{ fill: "#9CA3AF", fontSize: 12 }}
-            />
+            <YAxis stroke="#9CA3AF" tick={{ fill: "#9CA3AF", fontSize: 12 }} />
             <Tooltip
               contentStyle={{
                 backgroundColor: "#1F2937",
@@ -272,12 +297,10 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
               }}
               labelStyle={{ color: "#F59E0B", fontWeight: "bold" }}
             />
-            <Legend 
-              wrapperStyle={{ color: "#9CA3AF" }}
-            />
-            <Bar 
-              dataKey="count" 
-              fill="url(#colorGradient)" 
+            <Legend wrapperStyle={{ color: "#9CA3AF" }} />
+            <Bar
+              dataKey="count"
+              fill="url(#colorGradient)"
               name="Broj planova"
               radius={[8, 8, 0, 0]}
             />
@@ -306,7 +329,9 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                label={({ name, percent }) =>
+                  `${name}: ${((percent ?? 0) * 100).toFixed(0)}%`
+                }
                 outerRadius={85}
                 fill="#8884d8"
                 dataKey="value"
@@ -314,7 +339,10 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
                 strokeWidth={2}
               >
                 {tipOsobeData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
               </Pie>
               <Tooltip
@@ -343,7 +371,9 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                label={({ name, percent }) =>
+                  `${name}: ${((percent ?? 0) * 100).toFixed(0)}%`
+                }
                 outerRadius={85}
                 fill="#8884d8"
                 dataKey="value"
@@ -351,7 +381,10 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
                 strokeWidth={2}
               >
                 {radniStatusData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
               </Pie>
               <Tooltip
@@ -380,7 +413,9 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                label={({ name, percent }) =>
+                  `${name}: ${((percent ?? 0) * 100).toFixed(0)}%`
+                }
                 outerRadius={85}
                 fill="#8884d8"
                 dataKey="value"
@@ -388,7 +423,10 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
                 strokeWidth={2}
               >
                 {ranijeTreniraliData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
               </Pie>
               <Tooltip
@@ -420,7 +458,9 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
               cx="50%"
               cy="50%"
               labelLine={false}
-              label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+              label={({ name, percent }) =>
+                `${name}: ${((percent ?? 0) * 100).toFixed(0)}%`
+              }
               outerRadius={110}
               fill="#8884d8"
               dataKey="value"
@@ -443,13 +483,10 @@ export default function DashboardStats({ statistics }: DashboardStatsProps) {
               }}
               labelStyle={{ color: "#D4AF37", fontWeight: "bold" }}
             />
-            <Legend 
-              wrapperStyle={{ color: "#9CA3AF" }}
-            />
+            <Legend wrapperStyle={{ color: "#9CA3AF" }} />
           </PieChart>
         </ResponsiveContainer>
       </div>
     </div>
   );
 }
-
