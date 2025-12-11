@@ -610,8 +610,8 @@ export default function ProgressTracking({ userId }: ProgressTrackingProps) {
           <div className="text-center py-12 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
             <TrendingUp className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <p className="text-gray-600 dark:text-gray-400">
-              Još nema unosa. Klikni na "Novi Unos" da počneš da pratiš svoj
-              napredak!
+              Još nema unosa. Klikni na &quot;Novi Unos&quot; da počneš da
+              pratiš svoj napredak!
             </p>
           </div>
         ) : (
