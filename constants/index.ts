@@ -16,6 +16,10 @@ export const headerLinks = [
     route: "/ishrana",
   },
   {
+    label: "Napredak",
+    route: "/progress",
+  },
+  {
     label: "Anketa",
     route: "/survey",
   },

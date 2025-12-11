@@ -66,6 +66,12 @@ export const columns: ColumnDef<UserColumnParams>[] = [
             <DropdownMenuItem>
               <Link href={`/admin/users/${user._id}`}>📁 Detalji </Link>
             </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/admin/users/${user._id}/progress`}>
+                📊 Napredak{" "}
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>🗑️ Obriši klijenta</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

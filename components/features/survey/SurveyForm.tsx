@@ -52,6 +52,13 @@ import { createSurvey } from "@/lib/actions/survey.actions";
 import { setSurveyCompletedOnClerk } from "@/lib/actions/user.actions";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const SurveyForm = () => {
   const { user, isLoaded } = useUser();
@@ -72,6 +79,7 @@ const SurveyForm = () => {
 
   const [statusZaposlenja, setStatusZaposlenja] = useState<String>("");
   const [ranijeTrenirali, setRanijeTrenirali] = useState<String>("");
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   const form = useForm<z.infer<typeof surveyFormSchema>>({
     resolver: zodResolver(surveyFormSchema),
@@ -117,13 +125,8 @@ const SurveyForm = () => {
         await user.reload();
       }
 
-      toast({
-        variant: "default",
-        title: "Uspešno izmenjena vežba!",
-      });
-
-      router.push("/");
-      router.refresh();
+      // Prikaži dialog sa porukom o uspešnom slanju
+      setShowSuccessDialog(true);
     } catch (error) {
       console.error("Greška pri slanju forme:", error);
     }
@@ -592,6 +595,37 @@ const SurveyForm = () => {
           {form.formState.isSubmitting ? "Slanje.." : "Pošalji"}
         </Button>
       </div>
+
+      <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center">
+              ✅ Uspešno poslato!
+            </DialogTitle>
+            <DialogDescription className="text-center pt-4 space-y-3">
+              <p className="text-base">
+                Hvala ti što si popunio/la anketu! Tvoj personalni trener je
+                kontaktiran sa svim podacima.
+              </p>
+              <p className="text-base font-semibold text-primary">
+                Tvoj trening plan će biti dostupan za najkasnije 24 sata.
+              </p>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-center pt-4">
+            <Button
+              onClick={() => {
+                setShowSuccessDialog(false);
+                router.push("/");
+                router.refresh();
+              }}
+              className="bg-gradient-to-bl from-black via-[#6d671b] via-50% text-white"
+            >
+              Razumem
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

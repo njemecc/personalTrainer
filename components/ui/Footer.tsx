@@ -1,7 +1,57 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import { subscribeToNewsletter } from "@/lib/actions/newsletter.actions";
+import { toast } from "@/components/ui/use-toast";
 
 export const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!email) {
+      toast({
+        variant: "destructive",
+        title: "Greška",
+        description: "Molimo unesite email adresu.",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const result = await subscribeToNewsletter(email);
+
+      if (result.success) {
+        toast({
+          title: "Uspešno!",
+          description:
+            result.message || "Uspešno ste se pretplatili na newsletter!",
+        });
+        setEmail("");
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Greška",
+          description:
+            result.error || "Greška pri pretplati. Molimo pokušajte ponovo.",
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Greška",
+        description: "Greška pri pretplati. Molimo pokušajte ponovo.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <footer className="bg-gradient-to-b from-black via-gray-900 to-black mt-20 border-t border-gold/20">
       <div className="px-4 pt-16 pb-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -113,18 +163,25 @@ export const Footer = () => {
             <p className="text-base font-semibold tracking-wide text-white mb-4">
               Pretplati se na newsletter
             </p>
-            <form className="flex flex-col mt-4 md:flex-row gap-2">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col mt-4 md:flex-row gap-2"
+            >
               <input
                 placeholder="Tvoj email"
                 required
                 type="email"
-                className="flex-grow w-full h-12 px-4 transition duration-200 bg-white/10 border border-gray-600 rounded-lg shadow-sm text-white placeholder-gray-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/50"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isSubmitting}
+                className="flex-grow w-full h-12 px-4 transition duration-200 bg-white/10 border border-gray-600 rounded-lg shadow-sm text-white placeholder-gray-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/50 disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button
                 type="submit"
-                className="bg-gold hover:bg-gold/90 text-white inline-flex items-center justify-center h-12 px-6 font-semibold tracking-wide transition-all duration-300 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-gray-900"
+                disabled={isSubmitting}
+                className="bg-gold hover:bg-gold/90 text-white inline-flex items-center justify-center h-12 px-6 font-semibold tracking-wide transition-all duration-300 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 focus:shadow-outline focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                Pretplati se
+                {isSubmitting ? "Slanje..." : "Pretplati se"}
               </button>
             </form>
             <p className="mt-4 text-sm text-gray-400">

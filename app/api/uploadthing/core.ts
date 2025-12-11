@@ -1,7 +1,7 @@
 ﻿import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { getAuth } from "@clerk/nextjs/server";
-import {NextRequest} from "next/server";
+import { NextRequest } from "next/server";
 
 const f = createUploadthing();
 
@@ -40,11 +40,28 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Upload završen za userId:", metadata.userId);
-      console.log("URL fajla:", file.url);
+      console.log("URL fajla:", file.ufsUrl || file.url);
       console.log("Key fajla:", file.key);
 
       // Vraćamo i key koji će biti neophodan za brisanje fajla
-      return { fileUrl: file.url, fileKey: file.key };
+      return { fileUrl: file.ufsUrl || file.url, fileKey: file.key };
+    }),
+
+  progressPhotoUploader: f({
+    image: {
+      maxFileSize: "4MB",
+      maxFileCount: 5,
+    },
+  })
+    .middleware(async ({ req }) => {
+      const user = auth(req);
+
+      return { userId: user.id };
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
+      console.log("Progress photo upload završen za userId:", metadata.userId);
+      console.log("URL slike:", file.ufsUrl || file.url);
+      return { fileUrl: file.ufsUrl || file.url, fileKey: file.key };
     }),
 } satisfies FileRouter;
 
