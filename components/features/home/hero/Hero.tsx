@@ -22,7 +22,7 @@ export const Hero = () => {
             {text}
             <span className="inline-block text-deep-purple-accent-400"></span>
           </h2>
-          <p className="pr-5 mb-8 text-base text-black md:text-lg lg:text-xl font-medium leading-relaxed drop-shadow-lg">
+          <p className="pr-5 mb-8 text-base text-white md:text-lg lg:text-xl font-medium leading-relaxed drop-shadow-lg">
             Da li ste spremni da preuzmete kontrolu nad svojim zdravljem,
             oblikujete telo iz snova i povećate nivo energije? Ovde počinje vaše
             putovanje ka boljoj verziji sebe!

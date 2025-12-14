@@ -36,9 +36,6 @@ export const testimonials = [
     name: "rezultat3.jpg",
   },
   {
-    name: "rezultat4.jpg",
-  },
-  {
     name: "rezultat5.jpg",
   },
   {
