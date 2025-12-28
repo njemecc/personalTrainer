@@ -19,6 +19,7 @@ export default function IshranaLayout({
         {/* Spotlight effect */}
         <Spotlight className="hidden md:block" />
         
+        
         {/* Hero section with animation */}
         <motion.div 
           className="w-full relative mb-8 pt-10"
