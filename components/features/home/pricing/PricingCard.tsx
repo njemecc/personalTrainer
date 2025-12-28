@@ -14,10 +14,13 @@ const PricingCard = ({ duration, price }: PricingCardProps) => {
           {duration}
         </div>
         <div className="flex items-center justify-center mt-4 mb-6">
+          <span className="text-gray-600 text-2xl lg:text-3xl mr-1">€</span>
           <div className="text-5xl lg:text-6xl font-bold text-gold">
-            {price}
+            {new Intl.NumberFormat('de-DE', {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 2,
+            }).format(Number(price))}
           </div>
-          <span className="text-gray-600 text-lg ml-2">RSD</span>
         </div>
         <div className="mt-6 space-y-4">
           {pricingCardContent.map((content, i) => (
