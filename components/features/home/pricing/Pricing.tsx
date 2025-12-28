@@ -20,9 +20,9 @@ export const Pricing = () => {
         </p>
       </div>
       <div className="grid max-w-md gap-8 row-gap-5 lg:max-w-screen-lg sm:row-gap-10 md:grid-cols-2 lg:grid-cols-3 xl:max-w-screen-lg sm:mx-auto">
-        <PricingCard duration="1 mesec" price="7.990" />
-        <PricingCard duration="3 meseca" price="20.990" />
-        <PricingCard duration="6 meseci" price="39.990" />
+        <PricingCard duration="1 mesec" price="20" />
+        <PricingCard duration="2 meseca" price="35" />
+        <PricingCard duration="3 meseca" price="50" />
       </div>
     </div>
   );
